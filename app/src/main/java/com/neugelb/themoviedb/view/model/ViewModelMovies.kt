@@ -1,20 +1,80 @@
 package com.neugelb.themoviedb.view.model
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.neugelb.themoviedb.helper.LogHelper
+import com.neugelb.themoviedb.model.entity.Movie
+import com.neugelb.themoviedb.model.entity.Response
+import com.neugelb.themoviedb.model.entity.Source
+import com.neugelb.themoviedb.model.service.ServiceGetMovies
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class ViewModelMovies : ViewModel() {
+class ViewModelMovies(
+    compositeDisposable: CompositeDisposable,
+    logHelper: LogHelper,
+    private val serviceGetMovies: ServiceGetMovies
+) :
+    ViewModelBasePage(compositeDisposable, logHelper) {
 
+    private val _firstObservable: MutableLiveData<Response<Collection<Movie>>> = MutableLiveData()
+    val firstObservable: LiveData<Response<Collection<Movie>>>
+        get() = _firstObservable
+
+    private val _nextObservable: MutableLiveData<Response<Collection<Movie>>> = MutableLiveData()
+    val nextObservable: LiveData<Response<Collection<Movie>>>
+        get() = _nextObservable
+
+    fun firstMovies(source: Source) {
+        if (idle) {
+            compositeDisposable.add(
+
+                serviceGetMovies.execute(ServiceGetMovies.Input(firstPage(), source))
+                    .compose(composeSinglePage())
+                    .map { it.results }
+                    .doOnSubscribe { _firstObservable.postValue(Response.loading()) }
+                    .subscribe(
+                        { _firstObservable.postValue(Response.success(it)) },
+                        { _firstObservable.postValue(Response.error(it)) }
+
+                    )
+
+            )
+        }
+    }
+
+    fun nextMovies(source: Source) {
+        if (idle && hasMore) {
+            compositeDisposable.add(
+
+                serviceGetMovies.execute(ServiceGetMovies.Input(nextPage(), source))
+                    .compose(composeSinglePage())
+                    .map { it.results }
+                    .doOnSubscribe { _nextObservable.postValue(Response.loading()) }
+                    .subscribe(
+                        { _nextObservable.postValue(Response.success(it)) },
+                        { _nextObservable.postValue(Response.error(it)) }
+
+                    )
+
+            )
+        }
+    }
 
     class Factory
     @Inject
-    constructor() :
+    constructor(
+        private val compositeDisposable: CompositeDisposable,
+        private val logHelper: LogHelper,
+        private val serviceGetMovies: ServiceGetMovies
+    ) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ViewModelMovies::class.java))
-                return ViewModelMovies() as T
+                return ViewModelMovies(compositeDisposable, logHelper, serviceGetMovies) as T
             throw IllegalArgumentException()
         }
 

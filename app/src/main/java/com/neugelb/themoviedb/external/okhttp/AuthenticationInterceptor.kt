@@ -20,7 +20,7 @@ constructor(val resourcesHelper: ResourcesHelper) : Interceptor {
         val httpUrl = chain.request()
             .url
             .newBuilder()
-            .addQueryParameter("api_token", resourcesHelper.string(R.string.api_key))
+            .addQueryParameter("api_key", resourcesHelper.string(R.string.api_key))
             .build()
 
         val request = chain.request()

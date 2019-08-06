@@ -8,7 +8,7 @@ import javax.inject.Inject
 @ScopeMain
 class RepositoryMovies
 @Inject
-constructor(val retrofit: Retrofit) {
+constructor(private val retrofit: Retrofit) {
 
     fun popular(page: Int) = retrofit
         .create(BackendTheMovieDb.MoviesService::class.java)

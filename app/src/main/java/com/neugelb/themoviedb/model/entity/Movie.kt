@@ -1,6 +1,8 @@
 package com.neugelb.themoviedb.model.entity
 
 import androidx.room.Entity
+import androidx.room.Ignore
+import com.gmail.bishoybasily.recyclerview.RecyclerViewAdapter
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies", primaryKeys = ["id"])
@@ -18,4 +20,17 @@ data class Movie(
     val isAdult: Boolean,
     @SerializedName("vote_average")
     val votes: Double
-)
+) : RecyclerViewAdapter.Item {
+
+    @Ignore
+    var source: Source? = null
+
+}
+
+enum class Source {
+    LATEST,
+    UPCOMING,
+    NOW_PLAYING,
+    POPULAR,
+    TOP_RATED
+}

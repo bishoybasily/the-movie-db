@@ -9,7 +9,7 @@ data class Page<T>(
     val totalPages: Int
 ) {
 
-    val isLastPage: Boolean
-        get() = totalPages == page
+    val hasMore: Boolean
+        get() = totalPages > page
 
 }
