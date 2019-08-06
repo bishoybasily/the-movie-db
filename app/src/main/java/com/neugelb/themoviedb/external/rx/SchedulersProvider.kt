@@ -2,7 +2,7 @@ package com.neugelb.themoviedb.external.rx
 
 import io.reactivex.Scheduler
 
-class SchedulerProvider(
+class SchedulersProvider(
     val subscribe: Scheduler,
     val observe: Scheduler,
     val unsubscribe: Scheduler

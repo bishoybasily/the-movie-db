@@ -13,13 +13,13 @@
             android:theme="@style/AppTheme">
 
         <activity
-                android:name=".screen.activity.ActivityHome"
+                android:name=".view.activity.ActivityHome"
                 android:label="@string/title_activity_home">
 
         </activity>
 
         <activity
-                android:name=".screen.activity.ActivitySplash"
+                android:name=".view.activity.ActivitySplash"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:label="@string/app_name"
                 android:theme="@style/FullscreenTheme">

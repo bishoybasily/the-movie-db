@@ -2,7 +2,7 @@ package com.neugelb.themoviedb.di
 
 import com.neugelb.themoviedb.ApplicationTheMovieDb
 import com.neugelb.themoviedb.external.dagger.ScopeMain
-import com.neugelb.themoviedb.model.exception.ComponentNotInitializedThrowable
+import com.neugelb.themoviedb.view.fragment.FragmentMovies
 import dagger.Component
 
 @ScopeMain
@@ -19,7 +19,9 @@ import dagger.Component
 )
 interface ComponentMain {
 
-    fun inject(applicationTheMovieDb: ApplicationTheMovieDb)
+    fun inject(arg: ApplicationTheMovieDb)
+
+    fun inject(arg: FragmentMovies)
 
     companion object {
 
@@ -32,7 +34,7 @@ interface ComponentMain {
             return component
         }
 
-        fun get() = if (Companion::component.isInitialized) component else throw ComponentNotInitializedThrowable()
+        fun get() = component
 
     }
 

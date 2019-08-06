@@ -1,6 +1,6 @@
 package com.neugelb.themoviedb.di
 
-import com.neugelb.themoviedb.external.rx.SchedulerProvider
+import com.neugelb.themoviedb.external.rx.SchedulersProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,8 +14,8 @@ class ModuleRX {
     fun compositeDisposable() = CompositeDisposable()
 
     @Provides
-    fun schedulerProvider(): SchedulerProvider {
-        return SchedulerProvider(Schedulers.io(), AndroidSchedulers.mainThread(), Schedulers.computation())
+    fun schedulerProvider(): SchedulersProvider {
+        return SchedulersProvider(Schedulers.io(), AndroidSchedulers.mainThread(), Schedulers.computation())
     }
 
 }

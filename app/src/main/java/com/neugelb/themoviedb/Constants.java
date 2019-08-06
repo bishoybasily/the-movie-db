@@ -25,9 +25,9 @@ public interface Constants {
             String
 
                     MOVIE = "/movie/{id}",
-                    MOVIES_IMAGES = MOVIE + "/images",
-                    MOVIES_CREDITS = MOVIE + "/credits",
-                    MOVIES_VIDEOS = MOVIE + "/videos",
+                    MOVIE_IMAGES = MOVIE + "/images",
+                    MOVIE_CREDITS = MOVIE + "/credits",
+                    MOVIE_VIDEOS = MOVIE + "/videos",
                     MOVIES = "/movies",
                     MOVIES_POPULAR = MOVIES + "/popular",
                     MOVIES_LATEST = MOVIES + "/latest",

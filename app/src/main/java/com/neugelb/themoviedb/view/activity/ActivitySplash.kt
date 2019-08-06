@@ -1,4 +1,4 @@
-package com.neugelb.themoviedb.screen.activity
+package com.neugelb.themoviedb.view.activity
 
 import android.animation.Animator
 import android.content.Intent
