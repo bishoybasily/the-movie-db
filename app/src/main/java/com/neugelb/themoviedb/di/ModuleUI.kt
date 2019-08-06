@@ -57,5 +57,4 @@ class ModuleUI {
         return GridSpacingItemDecoration(systemHelper.dpTOpx(6.0f), Count._3.value)
     }
 
-
 }
