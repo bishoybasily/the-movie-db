@@ -7,7 +7,7 @@
               android:background="@color/colorPrimaryDark"
               android:orientation="vertical"
               android:gravity="center"
-              tools:context=".ActivitySplash">
+              tools:context=".screen.activity.ActivitySplash">
 
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
