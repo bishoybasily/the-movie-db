@@ -2,13 +2,6 @@ package com.neugelb.themoviedb;
 
 public interface Constants {
 
-    String TIME_FORMAT = "hh:mm:ss a";
-    String DATE_FORMAT_DASH = "yyyy-MM-dd";
-    String DATE_FORMAT_SLASH = "MM/dd/yyyy";
-    String DATETIME_FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-    String DATETIME_FORMAT_ISO_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
-
     interface Cache {
 
         String
