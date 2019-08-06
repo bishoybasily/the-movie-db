@@ -4,9 +4,10 @@ import androidx.room.Entity
 import com.gmail.bishoybasily.recyclerview.EndlessRecyclerViewAdapter
 import com.gmail.bishoybasily.recyclerview.RecyclerViewAdapter
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "movies", primaryKeys = ["id"])
-open class Movie(var id: String) : RecyclerViewAdapter.Item {
+open class Movie(var id: String) : RecyclerViewAdapter.Item, Serializable {
 
     var title: String? = null
     @SerializedName("poster_path")

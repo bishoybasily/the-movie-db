@@ -2,7 +2,6 @@ package com.neugelb.themoviedb.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.neugelb.themoviedb.R
 
 abstract class ActivityBase : AppCompatActivity() {
 
@@ -11,7 +10,7 @@ abstract class ActivityBase : AppCompatActivity() {
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_home)
+        setContentView(getLayoutResourceId())
 
         create(savedInstanceState)
     }

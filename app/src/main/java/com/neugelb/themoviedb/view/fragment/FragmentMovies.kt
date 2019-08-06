@@ -17,22 +17,15 @@ import com.neugelb.themoviedb.external.dagger.Orientation
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
+import com.neugelb.themoviedb.view.activity.ActivityMovie
 import com.neugelb.themoviedb.view.activity.viewModel
 import com.neugelb.themoviedb.view.adapter.EndlessAdapterMovies
 import com.neugelb.themoviedb.view.model.ViewModelMovies
 import kotlinx.android.synthetic.main.fragment_movies.*
+import kotlinx.android.synthetic.main.item_movie.view.*
 import javax.inject.Inject
 
 class FragmentMovies : FragmentBase() {
-
-    @field:[Inject]
-    lateinit var endlessAdapterMovies: EndlessAdapterMovies
-    @field:[Inject LayoutManager(count = Count._2, orientation = Orientation.PORTRAIT)]
-    lateinit var manager: GridLayoutManager
-    @field:[Inject LayoutManager(count = Count._2)]
-    lateinit var itemDecoration: GridSpacingItemDecoration
-    @field:[Inject]
-    lateinit var defaultItemAnimator: DefaultItemAnimator
 
     companion object {
 
@@ -46,7 +39,15 @@ class FragmentMovies : FragmentBase() {
 
     }
 
-    @Inject
+    @field:[Inject]
+    lateinit var endlessAdapterMovies: EndlessAdapterMovies
+    @field:[Inject LayoutManager(count = Count._2, orientation = Orientation.PORTRAIT)]
+    lateinit var gridLayoutManager: GridLayoutManager
+    @field:[Inject LayoutManager(count = Count._2)]
+    lateinit var itemDecoration: GridSpacingItemDecoration
+    @field:[Inject]
+    lateinit var defaultItemAnimator: DefaultItemAnimator
+    @field:[Inject]
     lateinit var factory: ViewModelMovies.Factory
     private val viewModel by lazy { viewModel(ViewModelMovies::class.java, factory) }
 
@@ -95,7 +96,9 @@ class FragmentMovies : FragmentBase() {
             }
         })
 
-        manager.apply {
+        endlessAdapterMovies.onClick { movie, view -> activity?.let { ActivityMovie.start(it, movie, view.imageView) } }
+
+        gridLayoutManager.apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     if (position >= 0)
@@ -119,8 +122,8 @@ class FragmentMovies : FragmentBase() {
 
         recyclerView.apply {
             adapter = endlessAdapterMovies
-//            itemAnimator = defaultItemAnimator
-            layoutManager = manager
+            itemAnimator = defaultItemAnimator
+            layoutManager = gridLayoutManager
             addItemDecoration(itemDecoration)
             addOnScrollListener(object : EndlessRecyclerViewScrollListener() {
 

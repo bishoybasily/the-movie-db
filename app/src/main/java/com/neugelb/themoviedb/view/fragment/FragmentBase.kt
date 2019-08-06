@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 
 abstract class FragmentBase : Fragment() {
 
@@ -16,7 +17,7 @@ abstract class FragmentBase : Fragment() {
     }
 
     open fun create(savedInstanceState: Bundle?) {
-
+        val activity: FragmentActivity? = activity
     }
 
     final override fun onCreateView(

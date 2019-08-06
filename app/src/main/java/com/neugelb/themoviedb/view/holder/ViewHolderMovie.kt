@@ -23,7 +23,7 @@ class ViewHolderMovie(
 
         ComponentMain.get().inject(this)
 
-        picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl).fit().into(view.imageView)
+        picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl).into(view.imageView)
 
     }
 
@@ -32,5 +32,6 @@ class ViewHolderMovie(
 
 
     }
+
 
 }
