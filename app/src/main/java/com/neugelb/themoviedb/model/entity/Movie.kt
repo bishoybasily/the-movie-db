@@ -1,29 +1,42 @@
 package com.neugelb.themoviedb.model.entity
 
 import androidx.room.Entity
-import androidx.room.Ignore
+import com.gmail.bishoybasily.recyclerview.EndlessRecyclerViewAdapter
 import com.gmail.bishoybasily.recyclerview.RecyclerViewAdapter
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies", primaryKeys = ["id"])
-data class Movie(
-    val id: String,
-    val title: String,
-    @SerializedName("poster_path")
-    val poster: String,
-    @SerializedName("backdrop_path")
-    val backdrop: String,
-    val overview: String,
-    @SerializedName("release_date")
-    val date: String,
-    @SerializedName("adult")
-    val isAdult: Boolean,
-    @SerializedName("vote_average")
-    val votes: Double
-) : RecyclerViewAdapter.Item {
+open class Movie(var id: String) : RecyclerViewAdapter.Item {
 
-    @Ignore
-    var source: Source? = null
+    var title: String? = null
+    @SerializedName("poster_path")
+    var posterUrl: String? = null
+    @SerializedName("backdrop_path")
+    var backdrop: String? = null
+    var overview: String? = null
+    @SerializedName("release_date")
+    var date: String? = null
+    @SerializedName("adult")
+    var isAdult: Boolean? = null
+    @SerializedName("vote_average")
+    var votes: Double? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Movie
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+
+    class Loader(id: String) : Movie(id), EndlessRecyclerViewAdapter.ItemLoader
 
 }
 

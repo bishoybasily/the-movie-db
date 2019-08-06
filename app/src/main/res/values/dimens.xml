@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="default_radius">9dp</dimen>
+    <dimen name="default_elevation">3dp</dimen>
+
+    <dimen name="spac_1">8dp</dimen>
+    <dimen name="spac_2">16dp</dimen>
+    <dimen name="item_movie_height">280dp</dimen>
+    <dimen name="item_loader_height">60dp</dimen>
+
 </resources>

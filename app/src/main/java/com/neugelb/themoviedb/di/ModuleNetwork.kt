@@ -83,7 +83,7 @@ class ModuleNetwork {
         converterFactory: Converter.Factory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.API.BASE_URL)
+            .baseUrl(Constants.API.BASE_API_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(callFactory)
             .addConverterFactory(converterFactory)

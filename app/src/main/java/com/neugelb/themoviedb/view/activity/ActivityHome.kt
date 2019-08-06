@@ -20,19 +20,19 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
         when (item.itemId) {
             R.id.navigation_home -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.fragmentHolder, FragmentMovies.newInstance(Source.POPULAR))
+                    .replace(R.id.fragmentHolder, FragmentMovies.newInstance(Source.POPULAR))
                     .commit()
                 return true
             }
             R.id.navigation_dashboard -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.fragmentHolder, FragmentMovies.newInstance(Source.NOW_PLAYING))
+                    .replace(R.id.fragmentHolder, FragmentMovies.newInstance(Source.NOW_PLAYING))
                     .commit()
                 return true
             }
             R.id.navigation_notifications -> {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.fragmentHolder, FragmentMovies.newInstance(Source.TOP_RATED))
+                    .replace(R.id.fragmentHolder, FragmentMovies.newInstance(Source.TOP_RATED))
                     .commit()
                 return true
             }

@@ -18,7 +18,8 @@ public interface Constants {
                 CONNECTION_TIMEOUT_SECONDS = 30L;
 
         String
-                BASE_URL = "https://api.themoviedb.org/3/";
+                BASE_API_URL = "https://api.themoviedb.org/3/",
+                BASE_MEDIA_URL = "https://image.tmdb.org/t/p/w500/";
 
         interface Endpoints {
 
@@ -40,10 +41,6 @@ public interface Constants {
 
 
     }
-
-
-    //https://api.themoviedb.org/3/movies/popular/?page=1&api_key=08bb0bd7b85af9ed9b38f6f2161512b3
-    //https://api.themoviedb.org/3/movie/popular/?page=1&api_key=08bb0bd7b85af9ed9b38f6f2161512b3
 
     interface Extra {
 
