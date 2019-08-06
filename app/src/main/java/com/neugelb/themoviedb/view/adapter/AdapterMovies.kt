@@ -7,9 +7,10 @@ import com.neugelb.themoviedb.R
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.view.holder.AbstractViewHolderMovie
 import com.neugelb.themoviedb.view.holder.ViewHolderMovie
+import com.neugelb.themoviedb.view.holder.ViewHolderMovieLoader
 import javax.inject.Inject
 
-class EndlessAdapterMovies
+class AdapterMovies
 @Inject
 constructor() : EndlessRecyclerViewAdapter<Movie, AbstractViewHolderMovie>() {
 
@@ -21,10 +22,10 @@ constructor() : EndlessRecyclerViewAdapter<Movie, AbstractViewHolderMovie>() {
     }
 
     override fun onCreateItemLoaderViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolderMovie {
-        return object : AbstractViewHolderMovie(
+        return ViewHolderMovieLoader(
             this,
             LayoutInflater.from(parent.context).inflate(R.layout.item_loader, parent, false)
-        ) {}
+        )
     }
 
 }

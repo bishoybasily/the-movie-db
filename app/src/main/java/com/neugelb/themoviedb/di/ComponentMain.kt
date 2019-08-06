@@ -16,7 +16,8 @@ import dagger.Component
         ModuleSystemService::class,
         ModuleNetwork::class,
         ModuleGson::class,
-        ModuleRoom::class
+        ModuleRoom::class,
+        ModuleRepository::class
     ]
 )
 interface ComponentMain {

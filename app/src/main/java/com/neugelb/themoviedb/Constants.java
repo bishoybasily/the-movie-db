@@ -27,7 +27,6 @@ public interface Constants {
 
                     MOVIES = "movie/",
                     MOVIES_POPULAR = MOVIES + "popular/",
-                    MOVIES_LATEST = MOVIES + "latest/",
                     MOVIES_TOP_RATED = MOVIES + "top_rated/",
                     MOVIES_UPCOMING = MOVIES + "upcoming/",
                     MOVIES_NOW_PLAYING = MOVIES + "now_playing/",

@@ -50,11 +50,6 @@ interface BackendTheMovieDb {
             @Query("page") page: Int
         ): Single<Page<Movie>>
 
-        @GET(Constants.API.Endpoints.MOVIES_LATEST)
-        fun latest(
-            @Query("page") page: Int
-        ): Single<Page<Movie>>
-
     }
 
 

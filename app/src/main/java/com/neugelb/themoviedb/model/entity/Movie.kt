@@ -18,7 +18,7 @@ open class Movie(var id: String) : RecyclerViewAdapter.Item, Serializable {
     @SerializedName("release_date")
     var date: String? = null
     @SerializedName("adult")
-    var isAdult: Boolean? = null
+    var isAdult: Boolean = false
     @SerializedName("vote_average")
     var votes: Double? = null
 
@@ -42,7 +42,6 @@ open class Movie(var id: String) : RecyclerViewAdapter.Item, Serializable {
 }
 
 enum class Source {
-    LATEST,
     UPCOMING,
     NOW_PLAYING,
     POPULAR,

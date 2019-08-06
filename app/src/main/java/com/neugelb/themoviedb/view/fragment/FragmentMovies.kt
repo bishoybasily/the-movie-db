@@ -19,7 +19,7 @@ import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
 import com.neugelb.themoviedb.view.activity.ActivityMovie
 import com.neugelb.themoviedb.view.activity.viewModel
-import com.neugelb.themoviedb.view.adapter.EndlessAdapterMovies
+import com.neugelb.themoviedb.view.adapter.AdapterMovies
 import com.neugelb.themoviedb.view.model.ViewModelMovies
 import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -40,7 +40,7 @@ class FragmentMovies : FragmentBase() {
     }
 
     @field:[Inject]
-    lateinit var endlessAdapterMovies: EndlessAdapterMovies
+    lateinit var adapterMovies: AdapterMovies
     @field:[Inject LayoutManager(count = Count._2, orientation = Orientation.PORTRAIT)]
     lateinit var gridLayoutManager: GridLayoutManager
     @field:[Inject LayoutManager(count = Count._2)]
@@ -72,7 +72,7 @@ class FragmentMovies : FragmentBase() {
                 }
                 Response.Status.SUCCESS -> {
                     swipeRefreshLayout.isRefreshing = false
-                    endlessAdapterMovies.show(it.data!!)
+                    adapterMovies.show(it.data!!)
                 }
                 Response.Status.ERROR -> {
                     swipeRefreshLayout.isRefreshing = false
@@ -82,27 +82,35 @@ class FragmentMovies : FragmentBase() {
         viewModel.nextObservable.observe(this, Observer {
             when (it.getStatus()) {
                 Response.Status.LOADING -> {
-                    endlessAdapterMovies.append(loader)
-                    recyclerView.post { recyclerView.scrollToPosition(endlessAdapterMovies.itemCount - 1) }
+
+                    if (!adapterMovies.items.contains(loader))
+                        adapterMovies.append(loader)
 
                 }
                 Response.Status.SUCCESS -> {
-                    endlessAdapterMovies.append(it.data!!)
-                    endlessAdapterMovies.remove(loader)
+
+                    if (adapterMovies.items.contains(loader))
+                        adapterMovies.remove(loader)
+
+                    adapterMovies.append(it.data!!)
+
                 }
                 Response.Status.ERROR -> {
-                    endlessAdapterMovies.remove(loader)
+
+                    if (adapterMovies.items.contains(loader))
+                        adapterMovies.remove(loader)
+
                 }
             }
         })
 
-        endlessAdapterMovies.onClick { movie, view -> activity?.let { ActivityMovie.start(it, movie, view.imageView) } }
+        adapterMovies.onClick { movie, view -> activity?.let { ActivityMovie.start(it, movie, view.imageView) } }
 
         gridLayoutManager.apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     if (position >= 0)
-                        if (endlessAdapterMovies.get(position) is Movie.Loader)
+                        if (adapterMovies.get(position) is Movie.Loader)
                             return 2
                     return 1
                 }
@@ -114,18 +122,18 @@ class FragmentMovies : FragmentBase() {
             skipLookup = object : SpacingItemDecoration.SkipLookup {
                 override fun shouldSkip(position: Int): Boolean {
                     if (position >= 0)
-                        return endlessAdapterMovies.get(position) is Movie.Loader
+                        return adapterMovies.get(position) is Movie.Loader
                     return false
                 }
             }
         }
 
         recyclerView.apply {
-            adapter = endlessAdapterMovies
+            adapter = adapterMovies
             itemAnimator = defaultItemAnimator
             layoutManager = gridLayoutManager
             addItemDecoration(itemDecoration)
-            addOnScrollListener(object : EndlessRecyclerViewScrollListener() {
+            addOnScrollListener(object : EndlessRecyclerViewScrollListener(8) {
 
                 override fun onLoadMore() {
                     viewModel.nextMovies(source)

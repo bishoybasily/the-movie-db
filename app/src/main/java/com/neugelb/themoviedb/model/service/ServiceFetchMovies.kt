@@ -1,5 +1,6 @@
 package com.neugelb.themoviedb.model.service
 
+import com.neugelb.themoviedb.external.dagger.Network
 import com.neugelb.themoviedb.external.dagger.ScopeMain
 import com.neugelb.themoviedb.external.rx.SchedulersProvider
 import com.neugelb.themoviedb.model.entity.Movie
@@ -10,17 +11,16 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 @ScopeMain
-class ServiceGetMovies
+class ServiceFetchMovies
 @Inject
 constructor(
     val schedulersProvider: SchedulersProvider,
-    val repositoryMovies: RepositoryMovies
+    @Network val repositoryMovies: RepositoryMovies
 ) :
-    ServiceBase<ServiceGetMovies.Input, Page<Movie>>(schedulersProvider) {
+    ServiceBase<ServiceFetchMovies.Input, Page<Movie>>(schedulersProvider) {
 
     override fun build(i: Input): Single<Page<Movie>> {
         return when (i.source) {
-            Source.LATEST -> repositoryMovies.latest(i.page)
             Source.UPCOMING -> repositoryMovies.upcoming(i.page)
             Source.NOW_PLAYING -> repositoryMovies.nowPlaying(i.page)
             Source.POPULAR -> repositoryMovies.popular(i.page)
@@ -28,7 +28,7 @@ constructor(
         }
     }
 
-    data class Input(
+    class Input(
         var page: Int,
         var source: Source
     )

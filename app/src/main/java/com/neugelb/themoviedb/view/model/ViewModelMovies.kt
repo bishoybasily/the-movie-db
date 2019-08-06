@@ -8,14 +8,14 @@ import com.neugelb.themoviedb.helper.LogHelper
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
-import com.neugelb.themoviedb.model.service.ServiceGetMovies
+import com.neugelb.themoviedb.model.service.ServiceFetchMovies
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ViewModelMovies(
     compositeDisposable: CompositeDisposable,
     logHelper: LogHelper,
-    private val serviceGetMovies: ServiceGetMovies
+    private val serviceFetchMovies: ServiceFetchMovies
 ) :
     ViewModelBasePage(compositeDisposable, logHelper) {
 
@@ -31,13 +31,13 @@ class ViewModelMovies(
         if (idle) {
             compositeDisposable.add(
 
-                serviceGetMovies.execute(ServiceGetMovies.Input(firstPage(), source))
+                serviceFetchMovies.execute(ServiceFetchMovies.Input(firstPage(), source))
+                    .doOnSubscribe { _firstObservable.value = Response.loading() }
                     .compose(composeSinglePage())
                     .map { it.results }
-                    .doOnSubscribe { _firstObservable.postValue(Response.loading()) }
                     .subscribe(
-                        { _firstObservable.postValue(Response.success(it)) },
-                        { _firstObservable.postValue(Response.error(it)) }
+                        { _firstObservable.value = Response.success(it) },
+                        { _firstObservable.value = Response.error(it) }
 
                     )
 
@@ -49,13 +49,13 @@ class ViewModelMovies(
         if (idle && hasMore) {
             compositeDisposable.add(
 
-                serviceGetMovies.execute(ServiceGetMovies.Input(nextPage(), source))
+                serviceFetchMovies.execute(ServiceFetchMovies.Input(nextPage(), source))
+                    .doOnSubscribe { _nextObservable.value = Response.loading() }
                     .compose(composeSinglePage())
                     .map { it.results }
-                    .doOnSubscribe { _nextObservable.postValue(Response.loading()) }
                     .subscribe(
-                        { _nextObservable.postValue(Response.success(it)) },
-                        { _nextObservable.postValue(Response.error(it)) }
+                        { _nextObservable.value = Response.success(it) },
+                        { _nextObservable.value = Response.error(it) }
 
                     )
 
@@ -68,13 +68,13 @@ class ViewModelMovies(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceGetMovies: ServiceGetMovies
+        private val serviceFetchMovies: ServiceFetchMovies
     ) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ViewModelMovies::class.java))
-                return ViewModelMovies(compositeDisposable, logHelper, serviceGetMovies) as T
+                return ViewModelMovies(compositeDisposable, logHelper, serviceFetchMovies) as T
             throw IllegalArgumentException()
         }
 

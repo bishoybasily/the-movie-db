@@ -21,9 +21,8 @@
             android:scaleType="centerCrop"/>
 
     <com.neugelb.themoviedb.view.components.HighlightTextView
+            android:id="@+id/textViewDescription"
             android:layout_width="wrap_content"
-            android:lines="3"
-            android:text="Some\nText\nthis is a larger line"
             android:textColor="@color/white"
             android:layout_height="wrap_content"
             android:layout_gravity="start|bottom"

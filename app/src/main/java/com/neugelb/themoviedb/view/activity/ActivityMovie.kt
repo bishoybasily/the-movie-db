@@ -45,6 +45,8 @@ class ActivityMovie : ActivityBase() {
 
         picasso.load(Constants.API.BASE_MEDIA_URL + movie.posterUrl).into(imageViewPoster)
 
+        title = movie.title
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()

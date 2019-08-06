@@ -13,6 +13,12 @@ annotation class ScopeMovie
 @Qualifier
 annotation class LayoutManager(val count: Count = Count.NONE, val orientation: Orientation = Orientation.PORTRAIT)
 
+@Qualifier
+annotation class Local
+
+@Qualifier
+annotation class Network
+
 enum class Count(val value: Int) {
     NONE(0),
     _2(2),

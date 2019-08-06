@@ -1,33 +1,29 @@
 package com.neugelb.themoviedb.model.repository
 
-import com.neugelb.themoviedb.external.dagger.ScopeMain
-import com.neugelb.themoviedb.model.data.BackendTheMovieDb
-import retrofit2.Retrofit
-import javax.inject.Inject
+import com.neugelb.themoviedb.model.entity.Movie
+import com.neugelb.themoviedb.model.entity.Page
+import io.reactivex.Single
 
-@ScopeMain
-class RepositoryMovies
-@Inject
-constructor(private val retrofit: Retrofit) {
+interface RepositoryMovies {
 
-    fun popular(page: Int) = retrofit
-        .create(BackendTheMovieDb.MoviesService::class.java)
-        .popular(page)
+    fun popular(page: Int): Single<Page<Movie>> {
+        return Single.error(UnsupportedOperationException("Unimplemented operation"))
+    }
 
-    fun upcoming(page: Int) = retrofit
-        .create(BackendTheMovieDb.MoviesService::class.java)
-        .upcoming(page)
+    fun upcoming(page: Int): Single<Page<Movie>> {
+        return Single.error(UnsupportedOperationException("Unimplemented operation"))
+    }
 
-    fun nowPlaying(page: Int) = retrofit
-        .create(BackendTheMovieDb.MoviesService::class.java)
-        .nowPlaying(page)
+    fun nowPlaying(page: Int): Single<Page<Movie>> {
+        return Single.error(UnsupportedOperationException("Unimplemented operation"))
+    }
 
-    fun topRated(page: Int) = retrofit
-        .create(BackendTheMovieDb.MoviesService::class.java)
-        .topRated(page)
+    fun topRated(page: Int): Single<Page<Movie>> {
+        return Single.error(UnsupportedOperationException("Unimplemented operation"))
+    }
 
-    fun latest(page: Int) = retrofit
-        .create(BackendTheMovieDb.MoviesService::class.java)
-        .latest(page)
+    fun saved(page: Int): Single<Page<Movie>> {
+        return Single.error(UnsupportedOperationException("Unimplemented operation"))
+    }
 
 }

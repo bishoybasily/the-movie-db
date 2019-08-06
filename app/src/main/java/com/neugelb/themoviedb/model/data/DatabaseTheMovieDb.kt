@@ -10,17 +10,18 @@ abstract class DatabaseTheMovieDb : RoomDatabase() {
 
     abstract fun movieDAO(): MovieDAO
 
-    @Dao
-    interface MovieDAO {
+}
 
-        @Query("SELECT * FROM movies")
-        fun findAll(): Single<List<Movie>>
+@Dao
+interface MovieDAO {
 
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
-        fun save(user: Movie)
+    @Query("SELECT * FROM movies")
+    fun findAll(): Single<List<Movie>>
 
-        @Delete
-        fun delete(user: Movie)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(user: Movie)
 
-    }
+    @Delete
+    fun delete(user: Movie)
+
 }

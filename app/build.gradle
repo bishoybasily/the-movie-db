@@ -70,7 +70,7 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:$lottie_version"
 
-    implementation 'com.github.bishoybasily:recycler-view:1.1.6'
+    implementation 'com.github.bishoybasily:recycler-view:1.1.7'
     implementation 'com.github.bishoybasily:permissions-requester:1.0.0'
 
     testImplementation 'junit:junit:4.12'
