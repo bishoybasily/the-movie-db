@@ -13,6 +13,7 @@ import com.neugelb.themoviedb.di.ComponentMain
 import com.neugelb.themoviedb.model.entity.Movie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie.*
+import kotlinx.android.synthetic.main.content_activity_movie.*
 import javax.inject.Inject
 
 class ActivityMovie : ActivityBase() {
@@ -46,6 +47,7 @@ class ActivityMovie : ActivityBase() {
         picasso.load(Constants.API.BASE_MEDIA_URL + movie.posterUrl).into(imageViewPoster)
 
         title = movie.title
+        textViewDescription.text = movie.overview
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

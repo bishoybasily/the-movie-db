@@ -4,13 +4,21 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.neugelb.themoviedb.di.ComponentMain
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 abstract class ActivityBase : AppCompatActivity() {
+
+    @field:[Inject]
+    lateinit var componeDisposable: CompositeDisposable
 
     abstract fun getLayoutResourceId(): Int
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ComponentMain.get().inject(this)
 
         setContentView(getLayoutResourceId())
 
@@ -43,6 +51,7 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     final override fun onDestroy() {
+        componeDisposable.clear()
         destroy()
         super.onDestroy()
     }

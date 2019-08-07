@@ -19,7 +19,7 @@ import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
 import com.neugelb.themoviedb.view.activity.ActivityMovie
 import com.neugelb.themoviedb.view.activity.viewModel
-import com.neugelb.themoviedb.view.adapter.AdapterMovies
+import com.neugelb.themoviedb.view.adapter.RecyclerViewAdapterMovies
 import com.neugelb.themoviedb.view.model.ViewModelMovies
 import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -40,7 +40,7 @@ class FragmentMovies : FragmentBase() {
     }
 
     @field:[Inject]
-    lateinit var adapterMovies: AdapterMovies
+    lateinit var adapterMovies: RecyclerViewAdapterMovies
     @field:[Inject LayoutManager(count = Count._2, orientation = Orientation.PORTRAIT)]
     lateinit var gridLayoutManager: GridLayoutManager
     @field:[Inject LayoutManager(count = Count._2)]

@@ -2,6 +2,8 @@ package com.neugelb.themoviedb.di
 
 import com.neugelb.themoviedb.ApplicationTheMovieDb
 import com.neugelb.themoviedb.external.dagger.ScopeMain
+import com.neugelb.themoviedb.view.activity.ActivityBase
+import com.neugelb.themoviedb.view.activity.ActivityHome
 import com.neugelb.themoviedb.view.activity.ActivityMovie
 import com.neugelb.themoviedb.view.fragment.FragmentMovies
 import com.neugelb.themoviedb.view.holder.ViewHolderMovie
@@ -26,6 +28,8 @@ interface ComponentMain {
     fun inject(arg: FragmentMovies)
     fun inject(arg: ViewHolderMovie)
     fun inject(arg: ActivityMovie)
+    fun inject(arg: ActivityHome)
+    fun inject(arg: ActivityBase)
 
     companion object {
 
