@@ -1,9 +1,11 @@
 package com.neugelb.themoviedb.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.neugelb.themoviedb.R
@@ -24,6 +26,16 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
     val fragmentMoviesUpcoming by lazy { FragmentMovies.newInstance(Source.UPCOMING) }
     val fragmentMoviesTopRated by lazy { FragmentMovies.newInstance(Source.TOP_RATED) }
     val fragmentMoviesNowPlaying by lazy { FragmentMovies.newInstance(Source.NOW_PLAYING) }
+
+    companion object {
+
+        fun start(activity: ComponentActivity) {
+            Intent(activity, ActivityHome::class.java)
+                .apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) }
+                .also(activity::startActivity)
+        }
+
+    }
 
     override fun getLayoutResourceId() = R.layout.activity_home
 

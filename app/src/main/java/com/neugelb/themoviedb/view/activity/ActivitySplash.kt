@@ -1,7 +1,6 @@
 package com.neugelb.themoviedb.view.activity
 
 import android.animation.Animator
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.neugelb.themoviedb.R
@@ -24,13 +23,7 @@ class ActivitySplash : AppCompatActivity() {
                 }
 
                 override fun onAnimationEnd(animation: Animator?) {
-
-                    Intent(this@ActivitySplash, ActivityHome::class.java)
-                        .apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        }
-                        .also(::startActivity)
-
+                    ActivityHome.start(this@ActivitySplash)
                 }
 
                 override fun onAnimationCancel(animation: Animator?) {
