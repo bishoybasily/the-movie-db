@@ -6,13 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.neugelb.themoviedb.di.ComponentMain
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 abstract class FragmentBase : Fragment() {
+
+    @field:[Inject]
+    lateinit var compositeDisposable: CompositeDisposable
 
     abstract fun getLayoutResourceId(): Int
 
     final override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ComponentMain.get().inject(this)
+
         create(savedInstanceState)
     }
 
@@ -34,6 +43,7 @@ abstract class FragmentBase : Fragment() {
     }
 
     final override fun onDestroy() {
+        compositeDisposable.clear()
         destroy()
         super.onDestroy()
     }

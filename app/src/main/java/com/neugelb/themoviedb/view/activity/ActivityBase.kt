@@ -37,6 +37,7 @@ abstract class ActivityBase : AppCompatActivity() {
         return optionsItemSelected(item)
     }
 
+
     open fun optionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }

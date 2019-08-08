@@ -2,19 +2,20 @@ package com.neugelb.themoviedb.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.neugelb.themoviedb.R
 import com.neugelb.themoviedb.di.ComponentMain
 import com.neugelb.themoviedb.helper.ReactiveHelper
 import com.neugelb.themoviedb.model.entity.Source
 import com.neugelb.themoviedb.view.fragment.FragmentMovies
+import com.neugelb.themoviedb.view.fragment.FragmentMoviesSearch
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_home.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +27,10 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
     val fragmentMoviesUpcoming by lazy { FragmentMovies.newInstance(Source.UPCOMING) }
     val fragmentMoviesTopRated by lazy { FragmentMovies.newInstance(Source.TOP_RATED) }
     val fragmentMoviesNowPlaying by lazy { FragmentMovies.newInstance(Source.NOW_PLAYING) }
+
+    val fragmentMoviesSearch by lazy { FragmentMoviesSearch.newInstance() }
+
+    lateinit var searchView: SearchView
 
     companion object {
 
@@ -39,6 +44,7 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
 
     override fun getLayoutResourceId() = R.layout.activity_home
 
+
     override fun create(savedInstanceState: Bundle?) {
 
         ComponentMain.get().inject(this)
@@ -50,27 +56,19 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
 
         when (item.itemId) {
             R.id.navigation_popular -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentHolder, fragmentMoviesPopular)
-                    .commit()
+                showFragment(fragmentMoviesPopular)
                 return true
             }
             R.id.navigation_upcoming -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentHolder, fragmentMoviesUpcoming)
-                    .commit()
+                showFragment(fragmentMoviesUpcoming)
                 return true
             }
             R.id.navigation_top_rated -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentHolder, fragmentMoviesTopRated)
-                    .commit()
+                showFragment(fragmentMoviesTopRated)
                 return true
             }
             R.id.navigation_now_playing -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentHolder, fragmentMoviesNowPlaying)
-                    .commit()
+                showFragment(fragmentMoviesNowPlaying)
                 return true
             }
         }
@@ -78,20 +76,24 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
         return false
     }
 
+    fun searchObservable(): Observable<String> {
+        return reactiveHelper.searchView(searchView)
+    }
+
+    private fun showFragment(fragmentMoviesSearch1: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolder, fragmentMoviesSearch1)
+            .commit()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_activity_home, menu)
+        menuInflater.inflate(R.menu.activity_home, menu)
 
-        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
-
-        searchView.suggestionsAdapter
-
-        componeDisposable.add(
-
-            reactiveHelper.searchView(searchView)
-                .debounce(1, TimeUnit.SECONDS)
-                .subscribe { Log.w("##", it) }
-
-        )
+        searchView = (menu.findItem(R.id.action_search).actionView as SearchView).apply {
+            setOnSearchClickListener {
+                showFragment(fragmentMoviesSearch)
+            }
+        }
 
         return true
     }

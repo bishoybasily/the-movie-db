@@ -10,7 +10,7 @@ import com.neugelb.themoviedb.view.holder.ViewHolderMovie
 import com.neugelb.themoviedb.view.holder.ViewHolderMovieLoader
 import javax.inject.Inject
 
-class RecyclerViewAdapterMovies
+open class AdapterMovies
 @Inject
 constructor() : EndlessRecyclerViewAdapter<Movie, AbstractViewHolderMovie>() {
 

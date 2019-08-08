@@ -4,13 +4,13 @@ import android.view.View
 import com.neugelb.themoviedb.Constants
 import com.neugelb.themoviedb.di.ComponentMain
 import com.neugelb.themoviedb.model.entity.Movie
-import com.neugelb.themoviedb.view.adapter.RecyclerViewAdapterMovies
+import com.neugelb.themoviedb.view.adapter.AdapterMovies
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 import javax.inject.Inject
 
 class ViewHolderMovie(
-    adapterMovies: RecyclerViewAdapterMovies,
+    adapterMovies: AdapterMovies,
     view: View
 ) : AbstractViewHolderMovie(adapterMovies, view) {
 

@@ -11,7 +11,7 @@ annotation class ScopeMain
 annotation class ScopeMovie
 
 @Qualifier
-annotation class LayoutManager(val count: Count = Count.NONE, val orientation: Orientation = Orientation.PORTRAIT)
+annotation class LayoutManager(val count: Count = Count.NONE, val orientation: Orientation = Orientation.VERTICAL)
 
 @Qualifier
 annotation class Local
@@ -29,6 +29,6 @@ enum class Count(val value: Int) {
 }
 
 enum class Orientation {
-    PORTRAIT,
-    LANDSCAPE
+    VERTICAL,
+    HORIZONTAL
 }
