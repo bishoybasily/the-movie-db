@@ -23,7 +23,7 @@ class ViewHolderMovie(
 
         picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl).into(view.imageView)
 
-        view.textViewDescription.setTextNew("${i.title}\n\nReleased at ${i.date},\n${if (i.isAdult) "+18" else "family movie"}")
+        view.textViewDescription.setTextNew("${i.title}\n\nReleased on ${i.date},\n${if (i.isAdult) "+18" else "family movie"}")
 
     }
 

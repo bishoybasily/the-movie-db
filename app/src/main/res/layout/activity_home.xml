@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
         tools:context=".view.activity.ActivityHome">
 
-    <FrameLayout
-            android:id="@+id/fragmentHolder"
-            android:layout_weight="1"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:layout_above="@+id/navigationView">
+
+        <FrameLayout
+                android:id="@+id/fragmentHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabFavourites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:layout_behavior=".view.behaviour.FloatingActionButtonBehaviour"
+                app:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_favorite_white_24dp"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigationView"
+            android:id="@id/navigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/nav_activity_home"/>
 
-</LinearLayout>
+
+</RelativeLayout>
+
+
+

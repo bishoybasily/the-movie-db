@@ -99,4 +99,5 @@
     </string>
     <string name="transition_movie_poster">transition_movie_poster</string>
     <string name="action_search">Search</string>
+    <string name="title_activity_favourites">Favourites</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.neugelb.themoviedb.R
@@ -43,24 +44,29 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
         ComponentMain.get().inject(this)
 
         navigationView.setOnNavigationItemSelectedListener(this)
+
+        navigationView.selectedItemId = navigationView.menu.iterator().next().itemId
+
+        fabFavourites.setOnClickListener { ActivityFavourites.start(this) }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.navigation_popular -> {
+            R.id.nav_popular -> {
                 showFragment(FragmentMovies.newInstance(Source.POPULAR))
                 return true
             }
-            R.id.navigation_upcoming -> {
+            R.id.nav_upcoming -> {
                 showFragment(FragmentMovies.newInstance(Source.UPCOMING))
                 return true
             }
-            R.id.navigation_top_rated -> {
+            R.id.nav_top_rated -> {
                 showFragment(FragmentMovies.newInstance(Source.TOP_RATED))
                 return true
             }
-            R.id.navigation_now_playing -> {
+            R.id.nav_now_playing -> {
                 showFragment(FragmentMovies.newInstance(Source.NOW_PLAYING))
                 return true
             }
