@@ -14,19 +14,19 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-class ModuleRepository {
+open class ModuleRepository {
 
     @Local
     @ScopeMain
     @Provides
-    fun repositoryMoviesLocal(movieDAO: MovieDAO): RepositoryMovies {
+    open fun repositoryMoviesLocal(movieDAO: MovieDAO): RepositoryMovies {
         return RepositoryMoviesLocalImpl(movieDAO)
     }
 
     @Network
     @ScopeMain
     @Provides
-    fun repositoryMoviesNetwork(retrofit: Retrofit): RepositoryMovies {
+    open fun repositoryMoviesNetwork(retrofit: Retrofit): RepositoryMovies {
         return RepositoryMoviesNetworkImpl(retrofit)
     }
 
@@ -34,7 +34,7 @@ class ModuleRepository {
     @Local
     @ScopeMain
     @Provides
-    fun repositoryMovieLocal(movieDAO: MovieDAO): RepositoryMovie {
+    open fun repositoryMovieLocal(movieDAO: MovieDAO): RepositoryMovie {
         return RepositoryMovieLocalImpl(movieDAO)
     }
 

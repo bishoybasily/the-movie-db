@@ -31,6 +31,7 @@ interface ComponentMainTest {
                 .moduleApplication(ModuleApplicationTest())
                 .moduleRX(ModuleRXTest())
                 .moduleSystem(ModuleSystemTest())
+                .moduleRepository(ModuleRepositoryTest())
                 .build()
             return component
         }
