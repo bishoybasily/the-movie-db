@@ -22,7 +22,7 @@ interface RepositoryMovies {
         return Single.error(UnsupportedOperationException("Unimplemented operation"))
     }
 
-    fun saved(page: Int): Single<Page<Movie>> {
+    fun saved(): Single<List<Movie>> {
         return Single.error(UnsupportedOperationException("Unimplemented operation"))
     }
 

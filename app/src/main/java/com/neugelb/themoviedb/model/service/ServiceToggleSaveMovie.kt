@@ -19,8 +19,6 @@ constructor(
 ) :
     ServiceBase<Movie, Movie>(schedulersProvider) {
 
-    val TAG = javaClass.simpleName
-
     override fun build(i: Movie): Single<Movie> {
         return repositoryMovie.find(i.id)
             .flatMap { repositoryMovie.delete(it).map { it.saved = false; it } }

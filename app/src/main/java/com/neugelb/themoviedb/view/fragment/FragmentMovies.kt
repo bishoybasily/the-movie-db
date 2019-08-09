@@ -16,12 +16,10 @@ import com.neugelb.themoviedb.external.dagger.Orientation
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
-import com.neugelb.themoviedb.view.activity.ActivityMovie
 import com.neugelb.themoviedb.view.activity.viewModel
 import com.neugelb.themoviedb.view.adapter.AdapterMovies
 import com.neugelb.themoviedb.view.model.ViewModelMovies
 import kotlinx.android.synthetic.main.fragment_movies.*
-import kotlinx.android.synthetic.main.item_movie.view.*
 import javax.inject.Inject
 
 class FragmentMovies : FragmentBase() {
@@ -50,9 +48,9 @@ class FragmentMovies : FragmentBase() {
     lateinit var factory: ViewModelMovies.Factory
     private val viewModel by lazy { viewModel(ViewModelMovies::class.java, factory) }
 
-    private val source by lazy { arguments?.getSerializable(Constants.Extra.SOURCE) as Source }
-
     private val loader = Movie.Loader(javaClass.name)
+
+    private val source by lazy { arguments?.getSerializable(Constants.Extra.SOURCE) as Source }
 
     override fun getLayoutResourceId() = R.layout.fragment_movies
 
@@ -102,8 +100,6 @@ class FragmentMovies : FragmentBase() {
                 }
             }
         })
-
-        adapterMovies.onClick { movie, view -> activity?.let { ActivityMovie.start(it, movie, view.imageView) } }
 
         gridLayoutManager.apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
