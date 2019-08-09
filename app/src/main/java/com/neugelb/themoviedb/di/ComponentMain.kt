@@ -22,7 +22,8 @@ import dagger.Component
         ModuleNetwork::class,
         ModuleGson::class,
         ModuleRoom::class,
-        ModuleRepository::class
+        ModuleRepository::class,
+        ModuleDAO::class
     ]
 )
 interface ComponentMain {

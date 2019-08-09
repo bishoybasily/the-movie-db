@@ -6,11 +6,13 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
-import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.Observer
 import com.neugelb.themoviedb.Constants
 import com.neugelb.themoviedb.R
 import com.neugelb.themoviedb.di.ComponentMain
 import com.neugelb.themoviedb.model.entity.Movie
+import com.neugelb.themoviedb.model.entity.Response
+import com.neugelb.themoviedb.view.model.ViewModelMovie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie.*
 import kotlinx.android.synthetic.main.content_activity_movie.*
@@ -20,6 +22,10 @@ class ActivityMovie : ActivityBase() {
 
     @field:[Inject]
     lateinit var picasso: Picasso
+
+    @field:[Inject]
+    lateinit var factory: ViewModelMovie.Factory
+    private val viewModel by lazy { viewModel(ViewModelMovie::class.java, factory) }
 
     private val movie by lazy { intent?.extras?.getSerializable(Constants.Extra.MOVIE) as Movie }
 
@@ -49,13 +55,24 @@ class ActivityMovie : ActivityBase() {
         title = movie.title
         textViewDescription.text = movie.overview
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        changeButtonIcon(movie)
+
+        fab.setOnClickListener { viewModel.toggleSave(movie) }
+
+        viewModel.toggleObservable.observe(this, Observer {
+            when (it.getStatus()) {
+                Response.Status.SUCCESS -> {
+                    it.data?.let { changeButtonIcon(it) }
+                }
+            }
+        })
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+    }
+
+    private fun changeButtonIcon(movie: Movie) {
+        fab.setImageResource(if (movie.saved) R.drawable.ic_favorite_white_24dp else R.drawable.ic_favorite_border_white_24dp)
     }
 
 }

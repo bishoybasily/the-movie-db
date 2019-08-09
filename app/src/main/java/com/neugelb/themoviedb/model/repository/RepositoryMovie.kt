@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface RepositoryMovie {
 
-    fun isSaved(id: String): Single<Boolean> {
+    fun find(id: String): Single<Movie> {
         return Single.error(UnsupportedOperationException())
     }
 
@@ -13,7 +13,7 @@ interface RepositoryMovie {
         return Single.error(UnsupportedOperationException())
     }
 
-    fun remove(movie: Movie): Single<Void> {
+    fun delete(movie: Movie): Single<Movie> {
         return Single.error(UnsupportedOperationException())
     }
 

@@ -1,6 +1,7 @@
 package com.neugelb.themoviedb.model.entity
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import com.gmail.bishoybasily.recyclerview.EndlessRecyclerViewAdapter
 import com.gmail.bishoybasily.recyclerview.RecyclerViewAdapter
 import com.google.gson.annotations.SerializedName
@@ -21,6 +22,9 @@ open class Movie(var id: String) : RecyclerViewAdapter.Item, Serializable {
     var isAdult: Boolean = false
     @SerializedName("vote_average")
     var votes: Double? = null
+
+    @Ignore
+    var saved: Boolean = false
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -15,7 +15,10 @@ abstract class DatabaseTheMovieDb : RoomDatabase() {
 @Dao
 interface MovieDAO {
 
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM movies m WHERE m.id=:id")
+    fun findOne(id: String): Single<Movie>
+
+    @Query("SELECT * FROM movies m")
     fun findAll(): Single<List<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -7,6 +7,7 @@ import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Page
 import com.neugelb.themoviedb.model.entity.Source
 import com.neugelb.themoviedb.model.repository.RepositoryMovies
+import com.neugelb.themoviedb.model.service.function.MapperMoviesStatuses
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -15,7 +16,8 @@ class ServiceFetchMovies
 @Inject
 constructor(
     val schedulersProvider: SchedulersProvider,
-    @Network val repositoryMovies: RepositoryMovies
+    @Network val repositoryMovies: RepositoryMovies,
+    val mapperMoviesStatuses: MapperMoviesStatuses
 ) :
     ServiceBase<ServiceFetchMovies.Input, Page<Movie>>(schedulersProvider) {
 
@@ -25,7 +27,7 @@ constructor(
             Source.NOW_PLAYING -> repositoryMovies.nowPlaying(i.page)
             Source.POPULAR -> repositoryMovies.popular(i.page)
             Source.TOP_RATED -> repositoryMovies.topRated(i.page)
-        }
+        }.flatMap(mapperMoviesStatuses::apply)
     }
 
     class Input(
