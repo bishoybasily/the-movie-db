@@ -2,10 +2,9 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_movie_compat_height"
+        android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
@@ -14,11 +13,29 @@
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="false">
 
-    <TextView
-            android:id="@+id/textViewTitle"
-            tools:text="@string/app_name"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/item_movie_compat_height"
+                android:transitionName="@string/transition_movie_poster"
+                android:layout_margin="@dimen/spac_1"
+                android:layout_height="@dimen/item_movie_compat_height"/>
+
+        <TextView
+                android:id="@+id/textViewTitle"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:text="@string/large_text"
+                android:lines="1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

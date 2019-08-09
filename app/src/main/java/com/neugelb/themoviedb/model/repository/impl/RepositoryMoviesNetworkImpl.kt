@@ -22,4 +22,8 @@ class RepositoryMoviesNetworkImpl(private val retrofit: Retrofit) : RepositoryMo
         .create(BackendTheMovieDb.MoviesService::class.java)
         .topRated(page)
 
+    override fun search(query: String, page: Int) = retrofit
+        .create(BackendTheMovieDb.MoviesService::class.java)
+        .search(query, page)
+
 }

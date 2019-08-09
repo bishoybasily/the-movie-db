@@ -26,4 +26,8 @@ interface RepositoryMovies {
         return Single.error(UnsupportedOperationException("Unimplemented operation"))
     }
 
+    fun search(query: String, page: Int): Single<Page<Movie>> {
+        return Single.error(UnsupportedOperationException("Unimplemented operation"))
+    }
+
 }

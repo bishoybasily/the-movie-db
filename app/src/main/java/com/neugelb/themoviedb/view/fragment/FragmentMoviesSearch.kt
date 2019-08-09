@@ -130,7 +130,7 @@ class FragmentMoviesSearch : FragmentBase() {
 
             (activity as ActivityHome)
                 .searchObservable()
-                .debounce(1, TimeUnit.SECONDS)
+                .debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe { viewModel.firstSearchMovies(it) }
 
         )

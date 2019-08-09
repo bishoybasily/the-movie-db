@@ -50,6 +50,12 @@ interface BackendTheMovieDb {
             @Query("page") page: Int
         ): Single<Page<Movie>>
 
+        @GET(Constants.API.Endpoints.SEARCH_MOVIES)
+        fun search(
+            @Query("query") query: String,
+            @Query("page") page: Int
+        ): Single<Page<Movie>>
+
     }
 
 

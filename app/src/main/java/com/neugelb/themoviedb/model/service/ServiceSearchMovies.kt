@@ -19,7 +19,7 @@ constructor(
     ServiceBase<ServiceSearchMovies.Input, Page<Movie>>(schedulersProvider) {
 
     override fun build(i: Input): Single<Page<Movie>> {
-        throw UnsupportedOperationException()
+        return repositoryMovies.search(i.query, i.page)
     }
 
     class Input(

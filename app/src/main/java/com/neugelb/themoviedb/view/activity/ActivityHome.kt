@@ -23,13 +23,6 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
     @field:[Inject]
     lateinit var reactiveHelper: ReactiveHelper
 
-    val fragmentMoviesPopular by lazy { FragmentMovies.newInstance(Source.POPULAR) }
-    val fragmentMoviesUpcoming by lazy { FragmentMovies.newInstance(Source.UPCOMING) }
-    val fragmentMoviesTopRated by lazy { FragmentMovies.newInstance(Source.TOP_RATED) }
-    val fragmentMoviesNowPlaying by lazy { FragmentMovies.newInstance(Source.NOW_PLAYING) }
-
-    val fragmentMoviesSearch by lazy { FragmentMoviesSearch.newInstance() }
-
     lateinit var searchView: SearchView
 
     companion object {
@@ -56,19 +49,19 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
 
         when (item.itemId) {
             R.id.navigation_popular -> {
-                showFragment(fragmentMoviesPopular)
+                showFragment(FragmentMovies.newInstance(Source.POPULAR))
                 return true
             }
             R.id.navigation_upcoming -> {
-                showFragment(fragmentMoviesUpcoming)
+                showFragment(FragmentMovies.newInstance(Source.UPCOMING))
                 return true
             }
             R.id.navigation_top_rated -> {
-                showFragment(fragmentMoviesTopRated)
+                showFragment(FragmentMovies.newInstance(Source.TOP_RATED))
                 return true
             }
             R.id.navigation_now_playing -> {
-                showFragment(fragmentMoviesNowPlaying)
+                showFragment(FragmentMovies.newInstance(Source.NOW_PLAYING))
                 return true
             }
         }
@@ -91,7 +84,7 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
 
         searchView = (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnSearchClickListener {
-                showFragment(fragmentMoviesSearch)
+                showFragment(FragmentMoviesSearch.newInstance())
             }
         }
 

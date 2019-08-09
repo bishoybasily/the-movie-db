@@ -52,12 +52,12 @@ class ViewModelMovies(
                 compositeDisposable.add(
 
                     serviceFetchMovies.execute(ServiceFetchMovies.Input(firstPage(), source))
-                        .doOnSubscribe { _firstObservable.value = Response.loading() }
+                        .doOnSubscribe { _firstObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
                         .subscribe(
-                            { _firstObservable.value = Response.success(it) },
-                            { _firstObservable.value = Response.error(it) }
+                            { _firstObservable.postValue(Response.success(it)) },
+                            { _firstObservable.postValue(Response.error(it)) }
                         )
 
                 )
@@ -71,12 +71,12 @@ class ViewModelMovies(
                 compositeDisposable.add(
 
                     serviceFetchMovies.execute(ServiceFetchMovies.Input(nextPage(), source))
-                        .doOnSubscribe { _nextObservable.value = Response.loading() }
+                        .doOnSubscribe { _nextObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
                         .subscribe(
-                            { _nextObservable.value = Response.success(it) },
-                            { _nextObservable.value = Response.error(it) }
+                            { _nextObservable.postValue(Response.success(it)) },
+                            { _nextObservable.postValue(Response.error(it)) }
                         )
 
                 )
@@ -94,7 +94,7 @@ class ViewModelMovies(
                 compositeDisposable.add(
 
                     serviceSearchMovies.execute(ServiceSearchMovies.Input(firstPage(), query))
-                        .doOnSubscribe { _firstSearchObservable.value = Response.loading() }
+                        .doOnSubscribe { _firstSearchObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
                         .subscribe(
@@ -112,7 +112,7 @@ class ViewModelMovies(
                 compositeDisposable.add(
 
                     serviceSearchMovies.execute(ServiceSearchMovies.Input(nextPage(), query))
-                        .doOnSubscribe { _nextSearchObservable.value = Response.loading() }
+                        .doOnSubscribe { _nextSearchObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
                         .subscribe(

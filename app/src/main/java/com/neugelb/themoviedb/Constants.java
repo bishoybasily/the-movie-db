@@ -25,6 +25,8 @@ public interface Constants {
 
             String
 
+                    SEARCH = "search/",
+                    SEARCH_MOVIES = SEARCH + "movie/",
                     MOVIES = "movie/",
                     MOVIES_POPULAR = MOVIES + "popular/",
                     MOVIES_TOP_RATED = MOVIES + "top_rated/",
