@@ -47,6 +47,9 @@ class ExampleUnitTest {
 
         assertEquals(4, 2 + 2)
         assertNotNull(connectivityManager)
+
+        Mockito.verify(repositoryMovie, Mockito.times(1)).find(id)
+
     }
 
 }
