@@ -8,13 +8,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 @Module
-class ModuleRX {
+open class ModuleRX {
 
     @Provides
-    fun compositeDisposable() = CompositeDisposable()
+    open fun compositeDisposable() = CompositeDisposable()
 
     @Provides
-    fun schedulerProvider(): SchedulersProvider {
+    open fun schedulerProvider(): SchedulersProvider {
         return SchedulersProvider(Schedulers.io(), AndroidSchedulers.mainThread(), Schedulers.computation())
     }
 

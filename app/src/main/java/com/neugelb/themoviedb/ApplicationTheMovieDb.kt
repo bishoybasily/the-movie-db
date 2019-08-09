@@ -6,7 +6,7 @@ import com.neugelb.themoviedb.helper.LogHelper
 import io.reactivex.plugins.RxJavaPlugins
 import javax.inject.Inject
 
-class ApplicationTheMovieDb : Application() {
+open class ApplicationTheMovieDb : Application() {
 
     val TAG = javaClass.simpleName
 
@@ -28,6 +28,5 @@ class ApplicationTheMovieDb : Application() {
     private fun initSDKs() {
         RxJavaPlugins.setErrorHandler { logHelper.error(TAG, it) }
     }
-
 
 }

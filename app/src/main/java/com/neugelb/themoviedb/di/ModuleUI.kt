@@ -1,6 +1,8 @@
 package com.neugelb.themoviedb.di
 
 import android.content.Context
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.gmail.bishoybasily.recyclerview.SpacingItemDecoration
 import com.neugelb.themoviedb.external.dagger.Count
 import com.neugelb.themoviedb.external.dagger.LayoutManager
 import com.neugelb.themoviedb.external.dagger.Orientation
+import com.neugelb.themoviedb.external.dagger.ScopeMain
 import com.neugelb.themoviedb.helper.SystemHelper
 import dagger.Module
 import dagger.Provides
@@ -19,6 +22,14 @@ import dagger.Provides
 
 @Module
 class ModuleUI {
+
+    @ScopeMain
+    @Provides
+    fun displayMetrics(windowManager: WindowManager): DisplayMetrics {
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics
+    }
 
     @Provides
     fun itemAnimator(): DefaultItemAnimator {

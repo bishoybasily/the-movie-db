@@ -19,7 +19,7 @@ import dagger.Component
         ModuleApplication::class,
         ModuleRX::class,
         ModuleUI::class,
-        ModuleSystemService::class,
+        ModuleSystem::class,
         ModuleNetwork::class,
         ModuleGson::class,
         ModuleRoom::class,

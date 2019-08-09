@@ -37,9 +37,7 @@ public interface Constants {
                     MOVIE_CREDITS = MOVIE + "credits/",
                     MOVIE_VIDEOS = MOVIE + "videos/";
 
-
         }
-
 
     }
 
@@ -52,7 +50,6 @@ public interface Constants {
     }
 
     interface Action {
-
 
     }
 
