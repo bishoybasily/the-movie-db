@@ -45,7 +45,7 @@ class UsecaseSavedMoviesTest {
         testObserver.assertValue(favourites)
         testObserver.assertComplete()
 
-        Mockito.verify(repositoryMovies, Mockito.times(1)).saved()
+        Mockito.verify(repositoryMovies).saved()
 
     }
 }

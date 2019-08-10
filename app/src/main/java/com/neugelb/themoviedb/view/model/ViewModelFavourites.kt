@@ -45,13 +45,13 @@ class ViewModelFavourites(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceSavedMovies: UsecaseSavedMovies
+        private val usecaseSavedMovies: UsecaseSavedMovies
     ) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ViewModelFavourites::class.java))
-                return ViewModelFavourites(compositeDisposable, logHelper, serviceSavedMovies) as T
+                return ViewModelFavourites(compositeDisposable, logHelper, usecaseSavedMovies) as T
             throw IllegalArgumentException()
         }
 

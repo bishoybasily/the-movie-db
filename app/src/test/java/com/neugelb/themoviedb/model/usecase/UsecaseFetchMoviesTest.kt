@@ -78,7 +78,7 @@ class UsecaseFetchMoviesTest {
         }
         testObserver.assertComplete()
 
-        Mockito.verify(repositoryMovies, Mockito.times(1)).popular(page)
+        Mockito.verify(repositoryMovies).popular(page)
 
     }
 
@@ -105,7 +105,7 @@ class UsecaseFetchMoviesTest {
         }
         testObserver.assertComplete()
 
-        Mockito.verify(repositoryMovies, Mockito.times(1)).upcoming(page)
+        Mockito.verify(repositoryMovies).upcoming(page)
 
     }
 

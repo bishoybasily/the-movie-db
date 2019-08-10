@@ -6,6 +6,8 @@ import com.neugelb.themoviedb.model.usecase.UsecaseSavedMoviesTest
 import com.neugelb.themoviedb.model.usecase.UsecaseSearchMoviesTest
 import com.neugelb.themoviedb.model.usecase.UsecaseToggleSaveMovieTest
 import com.neugelb.themoviedb.model.usecase.function.MapperMoviesStatusesTest
+import com.neugelb.themoviedb.view.model.ViewModelFavouritesTest
+import com.neugelb.themoviedb.view.model.ViewModelMovieTest
 import dagger.Component
 
 @ScopeMain
@@ -29,6 +31,8 @@ interface ComponentMainTest {
     fun inject(arg: MapperMoviesStatusesTest)
     fun inject(arg: UsecaseToggleSaveMovieTest)
     fun inject(arg: UsecaseSavedMoviesTest)
+    fun inject(arg: ViewModelFavouritesTest)
+    fun inject(arg: ViewModelMovieTest)
 
     companion object {
 

@@ -43,13 +43,13 @@ class ViewModelMovie(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceToggleSaveMovie: UsecaseToggleSaveMovie
+        private val usecaseToggleSaveMovie: UsecaseToggleSaveMovie
     ) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ViewModelMovie::class.java))
-                return ViewModelMovie(compositeDisposable, logHelper, serviceToggleSaveMovie) as T
+                return ViewModelMovie(compositeDisposable, logHelper, usecaseToggleSaveMovie) as T
             throw IllegalArgumentException()
         }
 

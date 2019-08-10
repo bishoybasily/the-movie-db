@@ -29,7 +29,6 @@ class ViewModelMovies(
     val nextObservable: LiveData<Response<Collection<Movie>>>
         get() = _nextObservable
 
-
     private val _firstSearchObservable: MutableLiveData<Response<Collection<Movie>>> = MutableLiveData()
     val firstSearchObservable: LiveData<Response<Collection<Movie>>>
         get() = _firstSearchObservable
@@ -129,14 +128,14 @@ class ViewModelMovies(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceFetchMovies: UsecaseFetchMovies,
-        private val serviceSearchMovies: UsecaseSearchMovies
+        private val usecaseFetchMovies: UsecaseFetchMovies,
+        private val usecaseSearchMovies: UsecaseSearchMovies
     ) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ViewModelMovies::class.java))
-                return ViewModelMovies(compositeDisposable, logHelper, serviceFetchMovies, serviceSearchMovies) as T
+                return ViewModelMovies(compositeDisposable, logHelper, usecaseFetchMovies, usecaseSearchMovies) as T
             throw IllegalArgumentException()
         }
 

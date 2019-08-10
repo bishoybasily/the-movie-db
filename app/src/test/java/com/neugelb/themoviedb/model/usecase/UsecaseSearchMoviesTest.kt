@@ -72,7 +72,7 @@ class UsecaseSearchMoviesTest {
         }
         testObserver.assertComplete()
 
-        Mockito.verify(repositoryMovies, Mockito.times(1)).search(query, page)
+        Mockito.verify(repositoryMovies).search(query, page)
 
     }
 
