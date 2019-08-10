@@ -8,16 +8,16 @@ import com.neugelb.themoviedb.helper.LogHelper
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
-import com.neugelb.themoviedb.model.service.ServiceFetchMovies
-import com.neugelb.themoviedb.model.service.ServiceSearchMovies
+import com.neugelb.themoviedb.model.usecase.UsecaseFetchMovies
+import com.neugelb.themoviedb.model.usecase.UsecaseSearchMovies
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ViewModelMovies(
     compositeDisposable: CompositeDisposable,
     logHelper: LogHelper,
-    private val serviceFetchMovies: ServiceFetchMovies,
-    private val serviceSearchMovies: ServiceSearchMovies
+    private val usecaseFetchMovies: UsecaseFetchMovies,
+    private val usecaseSearchMovies: UsecaseSearchMovies
 ) :
     ViewModelBasePage(compositeDisposable, logHelper) {
 
@@ -51,7 +51,7 @@ class ViewModelMovies(
             if (idle) {
                 compositeDisposable.add(
 
-                    serviceFetchMovies.execute(ServiceFetchMovies.Input(firstPage(), source))
+                    usecaseFetchMovies.execute(UsecaseFetchMovies.Input(firstPage(), source))
                         .doOnSubscribe { _firstObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
@@ -70,7 +70,7 @@ class ViewModelMovies(
             if (idle && hasMore) {
                 compositeDisposable.add(
 
-                    serviceFetchMovies.execute(ServiceFetchMovies.Input(nextPage(), source))
+                    usecaseFetchMovies.execute(UsecaseFetchMovies.Input(nextPage(), source))
                         .doOnSubscribe { _nextObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
@@ -93,7 +93,7 @@ class ViewModelMovies(
             if (idle) {
                 compositeDisposable.add(
 
-                    serviceSearchMovies.execute(ServiceSearchMovies.Input(firstPage(), query))
+                    usecaseSearchMovies.execute(UsecaseSearchMovies.Input(firstPage(), query))
                         .doOnSubscribe { _firstSearchObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
@@ -111,7 +111,7 @@ class ViewModelMovies(
             if (idle && hasMore) {
                 compositeDisposable.add(
 
-                    serviceSearchMovies.execute(ServiceSearchMovies.Input(nextPage(), query))
+                    usecaseSearchMovies.execute(UsecaseSearchMovies.Input(nextPage(), query))
                         .doOnSubscribe { _nextSearchObservable.postValue(Response.loading()) }
                         .compose(composeSinglePage())
                         .map { it.results }
@@ -129,8 +129,8 @@ class ViewModelMovies(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceFetchMovies: ServiceFetchMovies,
-        private val serviceSearchMovies: ServiceSearchMovies
+        private val serviceFetchMovies: UsecaseFetchMovies,
+        private val serviceSearchMovies: UsecaseSearchMovies
     ) :
         ViewModelProvider.Factory {
 

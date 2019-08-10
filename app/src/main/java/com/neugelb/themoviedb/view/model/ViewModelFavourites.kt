@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.neugelb.themoviedb.helper.LogHelper
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
-import com.neugelb.themoviedb.model.service.ServiceSavedMovies
+import com.neugelb.themoviedb.model.usecase.UsecaseSavedMovies
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ViewModelFavourites(
     compositeDisposable: CompositeDisposable,
     logHelper: LogHelper,
-    private val serviceSavedMovies: ServiceSavedMovies
+    private val usecaseSavedMovies: UsecaseSavedMovies
 ) :
     ViewModelBasePage(compositeDisposable, logHelper) {
 
@@ -27,7 +27,7 @@ class ViewModelFavourites(
         if (idle) {
             compositeDisposable.add(
 
-                serviceSavedMovies.execute(ServiceSavedMovies.Input())
+                usecaseSavedMovies.execute(UsecaseSavedMovies.Input())
                     .doOnSubscribe { _allObservable.postValue(Response.loading()) }
                     .compose(composeSingle())
                     .subscribe(
@@ -45,7 +45,7 @@ class ViewModelFavourites(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceSavedMovies: ServiceSavedMovies
+        private val serviceSavedMovies: UsecaseSavedMovies
     ) :
         ViewModelProvider.Factory {
 

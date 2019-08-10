@@ -1,4 +1,4 @@
-package com.neugelb.themoviedb.model.service
+package com.neugelb.themoviedb.model.usecase
 
 import com.neugelb.themoviedb.external.dagger.Local
 import com.neugelb.themoviedb.external.dagger.ScopeMain
@@ -10,14 +10,14 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 @ScopeMain
-class ServiceToggleSaveMovie
+class UsecaseToggleSaveMovie
 @Inject
 constructor(
     val logHelper: LogHelper,
     val schedulersProvider: SchedulersProvider,
     @Local val repositoryMovie: RepositoryMovie
 ) :
-    ServiceBase<Movie, Movie>(schedulersProvider) {
+    UsecaseBase<Movie, Movie>(schedulersProvider) {
 
     override fun build(i: Movie): Single<Movie> {
         return repositoryMovie.find(i.id)

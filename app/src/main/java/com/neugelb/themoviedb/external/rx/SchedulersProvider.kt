@@ -5,5 +5,6 @@ import io.reactivex.Scheduler
 class SchedulersProvider(
     val subscribe: Scheduler,
     val observe: Scheduler,
-    val unsubscribe: Scheduler
+    val unsubscribe: Scheduler,
+    val parallel: Scheduler
 )

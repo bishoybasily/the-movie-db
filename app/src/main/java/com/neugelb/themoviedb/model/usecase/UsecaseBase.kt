@@ -1,10 +1,10 @@
-package com.neugelb.themoviedb.model.service
+package com.neugelb.themoviedb.model.usecase
 
 
 import com.neugelb.themoviedb.external.rx.SchedulersProvider
 import io.reactivex.Single
 
-abstract class ServiceBase<I, O>(private val schedulersProvider: SchedulersProvider) {
+abstract class UsecaseBase<I, O>(private val schedulersProvider: SchedulersProvider) {
 
     protected abstract fun build(i: I): Single<O>
 

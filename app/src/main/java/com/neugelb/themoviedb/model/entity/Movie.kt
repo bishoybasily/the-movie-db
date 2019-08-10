@@ -41,6 +41,10 @@ open class Movie(var id: String) : RecyclerViewAdapter.Item, Serializable {
         return id.hashCode()
     }
 
+    override fun toString(): String {
+        return id
+    }
+
     class Loader(id: String) : Movie(id), EndlessRecyclerViewAdapter.ItemLoader
 
 }

@@ -1,7 +1,11 @@
 package com.neugelb.themoviedb.di
 
-import com.neugelb.themoviedb.ExampleUnitTest
 import com.neugelb.themoviedb.external.dagger.ScopeMain
+import com.neugelb.themoviedb.model.usecase.UsecaseFetchMoviesTest
+import com.neugelb.themoviedb.model.usecase.UsecaseSavedMoviesTest
+import com.neugelb.themoviedb.model.usecase.UsecaseSearchMoviesTest
+import com.neugelb.themoviedb.model.usecase.UsecaseToggleSaveMovieTest
+import com.neugelb.themoviedb.model.usecase.function.MapperMoviesStatusesTest
 import dagger.Component
 
 @ScopeMain
@@ -20,7 +24,11 @@ import dagger.Component
 )
 interface ComponentMainTest {
 
-    fun inject(arg: ExampleUnitTest)
+    fun inject(arg: UsecaseFetchMoviesTest)
+    fun inject(arg: UsecaseSearchMoviesTest)
+    fun inject(arg: MapperMoviesStatusesTest)
+    fun inject(arg: UsecaseToggleSaveMovieTest)
+    fun inject(arg: UsecaseSavedMoviesTest)
 
     companion object {
 

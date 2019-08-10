@@ -15,7 +15,12 @@ open class ModuleRX {
 
     @Provides
     open fun schedulerProvider(): SchedulersProvider {
-        return SchedulersProvider(Schedulers.io(), AndroidSchedulers.mainThread(), Schedulers.computation())
+        return SchedulersProvider(
+            Schedulers.io(),
+            AndroidSchedulers.mainThread(),
+            Schedulers.computation(),
+            Schedulers.newThread()
+        )
     }
 
 }

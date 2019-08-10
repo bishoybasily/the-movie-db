@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.neugelb.themoviedb.helper.LogHelper
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
-import com.neugelb.themoviedb.model.service.ServiceToggleSaveMovie
+import com.neugelb.themoviedb.model.usecase.UsecaseToggleSaveMovie
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ViewModelMovie(
     compositeDisposable: CompositeDisposable,
     logHelper: LogHelper,
-    private val serviceToggleSaveMovie: ServiceToggleSaveMovie
+    private val usecaseToggleSaveMovie: UsecaseToggleSaveMovie
 ) :
     ViewModelBasePage(compositeDisposable, logHelper) {
 
@@ -26,7 +26,7 @@ class ViewModelMovie(
 
         compositeDisposable.add(
 
-            serviceToggleSaveMovie.execute(movie)
+            usecaseToggleSaveMovie.execute(movie)
                 .doOnSubscribe { _toggleObservable.postValue(Response.loading()) }
                 .compose(composeSingle())
                 .subscribe(
@@ -43,7 +43,7 @@ class ViewModelMovie(
     constructor(
         private val compositeDisposable: CompositeDisposable,
         private val logHelper: LogHelper,
-        private val serviceToggleSaveMovie: ServiceToggleSaveMovie
+        private val serviceToggleSaveMovie: UsecaseToggleSaveMovie
     ) :
         ViewModelProvider.Factory {
 

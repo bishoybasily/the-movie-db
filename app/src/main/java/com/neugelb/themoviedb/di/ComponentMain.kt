@@ -30,14 +30,14 @@ import dagger.Component
 interface ComponentMain {
 
     fun inject(arg: ApplicationTheMovieDb)
-    fun inject(arg: FragmentMovies)
-    fun inject(arg: ViewHolderMovie)
     fun inject(arg: ActivityMovie)
     fun inject(arg: ActivityHome)
     fun inject(arg: ActivityBase)
     fun inject(arg: ActivityFavourites)
+    fun inject(arg: ViewHolderMovie)
     fun inject(arg: ViewHolderMovieCompat)
     fun inject(arg: FragmentMoviesSearch)
+    fun inject(arg: FragmentMovies)
     fun inject(arg: FragmentBase)
 
     companion object {
