@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface RepositoryMovie {
 
-    fun find(id: String?): Single<Movie> {
+    fun find(id: String): Single<Movie> {
         return Single.error(UnsupportedOperationException())
     }
 

@@ -2,7 +2,7 @@ package com.neugelb.themoviedb.view.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.bishoybasily.recyclerview.EndlessRecyclerViewScrollListener
@@ -14,8 +14,8 @@ import com.neugelb.themoviedb.external.dagger.Orientation
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.view.activity.ActivityHome
-import com.neugelb.themoviedb.view.activity.viewModel
 import com.neugelb.themoviedb.view.adapter.AdapterMoviesCompat
+import com.neugelb.themoviedb.view.model.ViewModelFactory
 import com.neugelb.themoviedb.view.model.ViewModelMovies
 import kotlinx.android.synthetic.main.fragment_movies.*
 import java.util.concurrent.TimeUnit
@@ -33,15 +33,19 @@ class FragmentMoviesSearch : FragmentBase() {
 
     @field:[Inject]
     lateinit var adapterMovies: AdapterMoviesCompat
+
     @field:[Inject LayoutManager(orientation = Orientation.VERTICAL)]
     lateinit var linearLayoutManager: LinearLayoutManager
+
     @field:[Inject LayoutManager(orientation = Orientation.VERTICAL)]
     lateinit var spacingItemDecoration: SpacingItemDecoration
+
     @field:[Inject]
     lateinit var defaultItemAnimator: DefaultItemAnimator
+
     @field:[Inject]
-    lateinit var factory: ViewModelMovies.Factory
-    private val viewModel by lazy { viewModel(ViewModelMovies::class.java, factory) }
+    lateinit var factory: ViewModelFactory<ViewModelMovies>
+    private val viewModel: ViewModelMovies by viewModels { factory }
 
     private val loader = Movie.Loader(javaClass.name)
 
@@ -55,7 +59,7 @@ class FragmentMoviesSearch : FragmentBase() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.firstSearchObservable.observe(this, Observer {
+        viewModel.firstSearchObservable.observe(viewLifecycleOwner) {
             when (it.getStatus()) {
                 Response.Status.LOADING -> {
                     swipeRefreshLayout.isRefreshing = true
@@ -68,37 +72,33 @@ class FragmentMoviesSearch : FragmentBase() {
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
-        })
-        viewModel.nextSearchObservable.observe(this, Observer {
+        }
+        viewModel.nextSearchObservable.observe(viewLifecycleOwner) {
             when (it.getStatus()) {
                 Response.Status.LOADING -> {
 
-                    if (!adapterMovies.items.contains(loader))
-                        adapterMovies.append(loader)
+                    if (!adapterMovies.items.contains(loader)) adapterMovies.append(loader)
 
                 }
                 Response.Status.SUCCESS -> {
 
-                    if (adapterMovies.items.contains(loader))
-                        adapterMovies.remove(loader)
+                    if (adapterMovies.items.contains(loader)) adapterMovies.remove(loader)
 
                     adapterMovies.append(it.data!!)
 
                 }
                 Response.Status.ERROR -> {
 
-                    if (adapterMovies.items.contains(loader))
-                        adapterMovies.remove(loader)
+                    if (adapterMovies.items.contains(loader)) adapterMovies.remove(loader)
 
                 }
             }
-        })
+        }
 
         spacingItemDecoration.apply {
             skipLookup = object : SpacingItemDecoration.SkipLookup {
                 override fun shouldSkip(position: Int): Boolean {
-                    if (position >= 0)
-                        return adapterMovies.get(position) is Movie.Loader
+                    if (position >= 0) return adapterMovies.get(position) is Movie.Loader
                     return false
                 }
             }
@@ -124,9 +124,7 @@ class FragmentMoviesSearch : FragmentBase() {
 
         compositeDisposable.add(
 
-            (activity as ActivityHome)
-                .searchObservable()
-                .debounce(500, TimeUnit.MILLISECONDS)
+            (activity as ActivityHome).searchObservable().debounce(500, TimeUnit.MILLISECONDS)
                 .subscribe { viewModel.firstSearchMovies(it) }
 
         )

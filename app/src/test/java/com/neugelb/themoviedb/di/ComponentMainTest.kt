@@ -21,7 +21,8 @@ import dagger.Component
         ModuleGson::class,
         ModuleRoom::class,
         ModuleRepository::class,
-        ModuleDAO::class
+        ModuleDao::class,
+        ModuleViewModel::class
     ]
 )
 interface ComponentMainTest {

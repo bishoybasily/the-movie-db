@@ -24,6 +24,9 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
     @field:[Inject]
     lateinit var reactiveHelper: ReactiveHelper
 
+//    @field:[Inject]
+//    lateinit var someProvider: SomeProvider<Movie>
+
     lateinit var searchView: SearchView
 
     companion object {
@@ -38,10 +41,13 @@ class ActivityHome : ActivityBase(), BottomNavigationView.OnNavigationItemSelect
 
     override fun getLayoutResourceId() = R.layout.activity_home
 
-
     override fun create(savedInstanceState: Bundle?) {
 
+
         ComponentMain.get().inject(this)
+
+//        Log.i("##", "Initialized ${::someProvider.isInitialized}")
+
 
         navigationView.setOnNavigationItemSelectedListener(this)
 

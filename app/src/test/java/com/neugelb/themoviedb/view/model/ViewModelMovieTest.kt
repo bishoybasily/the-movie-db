@@ -22,8 +22,8 @@ import javax.inject.Inject
 
 class ViewModelMovieTest {
 
+    @field:[Inject]
     lateinit var viewModelMovie: ViewModelMovie
-
     @field:[Inject]
     lateinit var compositeDisposable: CompositeDisposable
     @field:[Inject]
@@ -45,8 +45,6 @@ class ViewModelMovieTest {
         ComponentMainTest.initialize().inject(this)
 
         MockitoAnnotations.initMocks(this)
-
-        viewModelMovie = ViewModelMovie(compositeDisposable, logHelper, usecaseToggleSaveMovie)
 
         viewModelMovie.toggleObservable.observeForever(observer)
 

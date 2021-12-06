@@ -13,7 +13,6 @@ class Response<T> {
         ERROR
     }
 
-
     fun getStatus(): Status {
         if (loading)
             return Status.LOADING

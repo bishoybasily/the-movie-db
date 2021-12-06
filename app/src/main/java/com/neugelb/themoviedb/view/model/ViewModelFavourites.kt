@@ -2,21 +2,19 @@ package com.neugelb.themoviedb.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.neugelb.themoviedb.TheMovieDbApplication
 import com.neugelb.themoviedb.helper.LogHelper
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.usecase.UsecaseSavedMovies
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 class ViewModelFavourites(
+    application: TheMovieDbApplication,
     compositeDisposable: CompositeDisposable,
     logHelper: LogHelper,
     private val usecaseSavedMovies: UsecaseSavedMovies
-) :
-    ViewModelBasePage(compositeDisposable, logHelper) {
+) : ViewModelBasePage(application, compositeDisposable, logHelper) {
 
     private val _allObservable: MutableLiveData<Response<Collection<Movie>>> = MutableLiveData()
     val allObservable: LiveData<Response<Collection<Movie>>>
@@ -40,21 +38,5 @@ class ViewModelFavourites(
 
     }
 
-    class Factory
-    @Inject
-    constructor(
-        private val compositeDisposable: CompositeDisposable,
-        private val logHelper: LogHelper,
-        private val usecaseSavedMovies: UsecaseSavedMovies
-    ) :
-        ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ViewModelFavourites::class.java))
-                return ViewModelFavourites(compositeDisposable, logHelper, usecaseSavedMovies) as T
-            throw IllegalArgumentException()
-        }
-
-    }
 
 }

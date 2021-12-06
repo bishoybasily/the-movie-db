@@ -2,7 +2,7 @@ package com.neugelb.themoviedb.view.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gmail.bishoybasily.recyclerview.EndlessRecyclerViewScrollListener
@@ -16,8 +16,8 @@ import com.neugelb.themoviedb.external.dagger.Orientation
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
 import com.neugelb.themoviedb.model.entity.Source
-import com.neugelb.themoviedb.view.activity.viewModel
 import com.neugelb.themoviedb.view.adapter.AdapterMovies
+import com.neugelb.themoviedb.view.model.ViewModelFactory
 import com.neugelb.themoviedb.view.model.ViewModelMovies
 import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
@@ -38,15 +38,19 @@ class FragmentMovies : FragmentBase() {
 
     @field:[Inject]
     lateinit var adapterMovies: AdapterMovies
+
     @field:[Inject LayoutManager(Count._2, Orientation.VERTICAL)]
     lateinit var gridLayoutManager: GridLayoutManager
+
     @field:[Inject LayoutManager(Count._2)]
     lateinit var spacingItemDecoration: SpacingItemDecoration
+
     @field:[Inject]
     lateinit var defaultItemAnimator: DefaultItemAnimator
+
     @field:[Inject]
-    lateinit var factory: ViewModelMovies.Factory
-    private val viewModel by lazy { viewModel(ViewModelMovies::class.java, factory) }
+    lateinit var factory: ViewModelFactory<ViewModelMovies>
+    private val viewModel: ViewModelMovies by viewModels { factory }
 
     private val loader = Movie.Loader(javaClass.name)
 
@@ -62,7 +66,7 @@ class FragmentMovies : FragmentBase() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.firstObservable.observe(this, Observer {
+        viewModel.firstObservable.observe(viewLifecycleOwner) {
             when (it.getStatus()) {
                 Response.Status.LOADING -> {
                     swipeRefreshLayout.isRefreshing = true
@@ -75,8 +79,8 @@ class FragmentMovies : FragmentBase() {
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
-        })
-        viewModel.nextObservable.observe(this, Observer {
+        }
+        viewModel.nextObservable.observe(viewLifecycleOwner) {
             when (it.getStatus()) {
                 Response.Status.LOADING -> {
 
@@ -99,7 +103,7 @@ class FragmentMovies : FragmentBase() {
 
                 }
             }
-        })
+        }
 
         gridLayoutManager.apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

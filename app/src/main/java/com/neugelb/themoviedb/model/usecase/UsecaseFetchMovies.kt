@@ -30,7 +30,6 @@ constructor(
         }.flatMap(mapperMoviesStatuses::apply)
     }
 
-
     class Input(
         var page: Int,
         var source: Source

@@ -20,9 +20,7 @@ class UsecaseToggleSaveMovieTest {
 
     @Before
     fun setUp() {
-
         ComponentMainTest.initialize().inject(this)
-
     }
 
     @Test

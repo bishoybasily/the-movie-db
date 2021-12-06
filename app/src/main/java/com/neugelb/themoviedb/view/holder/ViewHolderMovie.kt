@@ -11,7 +11,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie.view.*
 import javax.inject.Inject
 
-class ViewHolderMovie(
+class ViewHolderMovie
+@Inject
+constructor(
     adapterMovies: AdapterMovies,
     view: View
 ) : AbstractViewHolderMovie(adapterMovies, view) {
@@ -19,19 +21,16 @@ class ViewHolderMovie(
     @field:[Inject]
     lateinit var picasso: Picasso
 
-    override fun attached(i: Movie) {
+    override fun onAttached(i: Movie) {
 
         ComponentMain.get().inject(this)
 
-        picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl).into(view.imageView)
+        picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl)
+            .into(view.imageView)
 
         view.textViewDescription.setTextNew("${i.title}\n\nReleased on ${i.date},\n${if (i.isAdult) "+18" else "family movie"}")
 
         view.setOnClickListener { ActivityMovie.start(view.context as ComponentActivity, i, view.imageView) }
-
-    }
-
-    override fun detached(i: Movie) {
 
     }
 

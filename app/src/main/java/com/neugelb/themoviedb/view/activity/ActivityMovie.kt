@@ -4,14 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
-import androidx.lifecycle.Observer
 import com.neugelb.themoviedb.Constants
 import com.neugelb.themoviedb.R
 import com.neugelb.themoviedb.di.ComponentMain
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
+import com.neugelb.themoviedb.view.model.ViewModelFactory
 import com.neugelb.themoviedb.view.model.ViewModelMovie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie.*
@@ -24,8 +25,8 @@ class ActivityMovie : ActivityBase() {
     lateinit var picasso: Picasso
 
     @field:[Inject]
-    lateinit var factory: ViewModelMovie.Factory
-    private val viewModel by lazy { viewModel(ViewModelMovie::class.java, factory) }
+    lateinit var factory: ViewModelFactory<ViewModelMovie>
+    private val viewModel: ViewModelMovie by viewModels { factory }
 
     private val movie by lazy { intent?.extras?.getSerializable(Constants.Extra.MOVIE) as Movie }
 
@@ -50,7 +51,8 @@ class ActivityMovie : ActivityBase() {
 
         setSupportActionBar(toolbar)
 
-        picasso.load(Constants.API.BASE_MEDIA_URL + movie.posterUrl).into(imageViewPoster)
+        picasso.load(Constants.API.BASE_MEDIA_URL + movie.posterUrl)
+            .into(imageViewPoster)
 
         title = movie.title
         textViewDescription.text = movie.overview
@@ -59,13 +61,13 @@ class ActivityMovie : ActivityBase() {
 
         fab.setOnClickListener { viewModel.toggleSave(movie) }
 
-        viewModel.toggleObservable.observe(this, Observer {
+        viewModel.toggleObservable.observe(this) {
             when (it.getStatus()) {
                 Response.Status.SUCCESS -> {
                     it.data?.let { changeButtonIcon(it) }
                 }
             }
-        })
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

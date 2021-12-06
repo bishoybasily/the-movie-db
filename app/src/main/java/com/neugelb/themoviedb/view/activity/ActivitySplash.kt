@@ -35,9 +35,7 @@ class ActivitySplash : AppCompatActivity() {
                 }
 
             })
-        }.also {
-            it.playAnimation()
-        }
+        }.also { it.playAnimation() }
 
     }
 

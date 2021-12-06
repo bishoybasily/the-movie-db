@@ -2,8 +2,7 @@ package com.neugelb.themoviedb.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.neugelb.themoviedb.TheMovieDbApplication
 import com.neugelb.themoviedb.helper.LogHelper
 import com.neugelb.themoviedb.model.entity.Movie
 import com.neugelb.themoviedb.model.entity.Response
@@ -11,15 +10,14 @@ import com.neugelb.themoviedb.model.entity.Source
 import com.neugelb.themoviedb.model.usecase.UsecaseFetchMovies
 import com.neugelb.themoviedb.model.usecase.UsecaseSearchMovies
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 class ViewModelMovies(
+    application: TheMovieDbApplication,
     compositeDisposable: CompositeDisposable,
     logHelper: LogHelper,
     private val usecaseFetchMovies: UsecaseFetchMovies,
     private val usecaseSearchMovies: UsecaseSearchMovies
-) :
-    ViewModelBasePage(compositeDisposable, logHelper) {
+) : ViewModelBasePage(application, compositeDisposable, logHelper) {
 
     private val _firstObservable: MutableLiveData<Response<Collection<Movie>>> = MutableLiveData()
     val firstObservable: LiveData<Response<Collection<Movie>>>
@@ -121,24 +119,6 @@ class ViewModelMovies(
 
                 )
             }
-    }
-
-    class Factory
-    @Inject
-    constructor(
-        private val compositeDisposable: CompositeDisposable,
-        private val logHelper: LogHelper,
-        private val usecaseFetchMovies: UsecaseFetchMovies,
-        private val usecaseSearchMovies: UsecaseSearchMovies
-    ) :
-        ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ViewModelMovies::class.java))
-                return ViewModelMovies(compositeDisposable, logHelper, usecaseFetchMovies, usecaseSearchMovies) as T
-            throw IllegalArgumentException()
-        }
-
     }
 
 }

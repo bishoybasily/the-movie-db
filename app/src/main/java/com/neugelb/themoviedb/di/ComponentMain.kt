@@ -1,6 +1,6 @@
 package com.neugelb.themoviedb.di
 
-import com.neugelb.themoviedb.ApplicationTheMovieDb
+import com.neugelb.themoviedb.TheMovieDbApplication
 import com.neugelb.themoviedb.external.dagger.ScopeMain
 import com.neugelb.themoviedb.view.activity.ActivityBase
 import com.neugelb.themoviedb.view.activity.ActivityFavourites
@@ -24,12 +24,13 @@ import dagger.Component
         ModuleGson::class,
         ModuleRoom::class,
         ModuleRepository::class,
-        ModuleDAO::class
+        ModuleDao::class,
+        ModuleViewModel::class
     ]
 )
 interface ComponentMain {
 
-    fun inject(arg: ApplicationTheMovieDb)
+    fun inject(arg: TheMovieDbApplication)
     fun inject(arg: ActivityMovie)
     fun inject(arg: ActivityHome)
     fun inject(arg: ActivityBase)
@@ -44,9 +45,9 @@ interface ComponentMain {
 
         private lateinit var component: ComponentMain
 
-        fun initialize(applicationTheMovieDb: ApplicationTheMovieDb): ComponentMain {
+        fun initialize(theMovieDbApplication: TheMovieDbApplication): ComponentMain {
             component = DaggerComponentMain.builder()
-                .moduleApplication(ModuleApplication(applicationTheMovieDb))
+                .moduleApplication(ModuleApplication(theMovieDbApplication))
                 .build()
             return component
         }

@@ -24,9 +24,7 @@ class MapperMoviesStatusesTest {
 
     @Before
     fun setUp() {
-
         ComponentMainTest.initialize().inject(this)
-
     }
 
     @Test

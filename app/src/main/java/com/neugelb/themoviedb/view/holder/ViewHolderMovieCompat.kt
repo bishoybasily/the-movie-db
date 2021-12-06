@@ -12,7 +12,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie_compat.view.*
 import javax.inject.Inject
 
-class ViewHolderMovieCompat(
+class ViewHolderMovieCompat
+@Inject
+constructor(
     adapterMoviesCompat: AdapterMoviesCompat,
     view: View
 ) : AbstractViewHolderMovie(adapterMoviesCompat, view) {
@@ -20,19 +22,22 @@ class ViewHolderMovieCompat(
     @field:[Inject]
     lateinit var picasso: Picasso
 
-    override fun attached(i: Movie) {
+    override fun onAttached(i: Movie) {
 
         ComponentMain.get().inject(this)
 
-        picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl).transform(RoundTransform()).into(view.imageView)
+        picasso.load(Constants.API.BASE_MEDIA_URL + i.posterUrl)
+            .transform(RoundTransform())
+            .into(view.imageView)
+
         view.textViewTitle.text = i.title
 
-        view.setOnClickListener { ActivityMovie.start(view.context as ComponentActivity, i, view.imageView) }
+        view.setOnClickListener {
+            ActivityMovie.start(view.context as ComponentActivity, i, view.imageView)
+        }
 
     }
 
-    override fun detached(i: Movie) {
 
-    }
 
 }

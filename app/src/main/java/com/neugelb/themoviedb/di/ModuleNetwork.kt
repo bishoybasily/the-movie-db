@@ -7,7 +7,8 @@ import com.neugelb.themoviedb.external.dagger.ScopeMain
 import com.neugelb.themoviedb.external.okhttp.AuthenticationInterceptor
 import com.neugelb.themoviedb.external.okhttp.CachingInterceptor
 import com.neugelb.themoviedb.external.okhttp.LoggingInterceptor
-import com.neugelb.themoviedb.external.picasso.OkHttp3Downloader
+import com.squareup.picasso.Downloader
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
@@ -63,7 +64,7 @@ class ModuleNetwork {
 
     @ScopeMain
     @Provides
-    fun picasso(context: Context, downloader: OkHttp3Downloader): Picasso {
+    fun picasso(context: Context, downloader: Downloader): Picasso {
         return Picasso.Builder(context)
             .downloader(downloader)
             .build()
@@ -71,7 +72,7 @@ class ModuleNetwork {
 
     @ScopeMain
     @Provides
-    fun okHttp3Downloader(okHttpClient: OkHttpClient): OkHttp3Downloader {
+    fun okHttp3Downloader(okHttpClient: OkHttpClient): Downloader {
         return OkHttp3Downloader(okHttpClient)
     }
 

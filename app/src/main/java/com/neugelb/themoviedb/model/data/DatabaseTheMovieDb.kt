@@ -4,16 +4,15 @@ import androidx.room.*
 import com.neugelb.themoviedb.model.entity.Movie
 import io.reactivex.Single
 
-
 @Database(entities = [Movie::class], version = 1, exportSchema = false)
 abstract class DatabaseTheMovieDb : RoomDatabase() {
 
-    abstract fun movieDAO(): MovieDAO
+    abstract fun movieDAO(): MovieDao
 
 }
 
 @Dao
-interface MovieDAO {
+interface MovieDao {
 
     @Query("SELECT * FROM movies m WHERE m.id=:id")
     fun findOne(id: String): Single<Movie>

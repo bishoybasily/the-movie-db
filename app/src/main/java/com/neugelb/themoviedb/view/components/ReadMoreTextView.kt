@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextPaint
-import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.AttributeSet
@@ -51,10 +50,8 @@ class ReadMoreTextView : AppCompatTextView {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ReadMoreTextView)
         try {
 
-            val et = typedArray.getString(R.styleable.ReadMoreTextView_expandText)
-            val ct = typedArray.getString(R.styleable.ReadMoreTextView_collapseText)
-            if (!TextUtils.isEmpty(et)) expandText = et
-            if (!TextUtils.isEmpty(ct)) collapseText = ct
+            typedArray.getString(R.styleable.ReadMoreTextView_expandText)?.let { expandText = it }
+            typedArray.getString(R.styleable.ReadMoreTextView_collapseText)?.let { collapseText = it }
 
             maxCharactersLength =
                 typedArray.getInteger(R.styleable.ReadMoreTextView_maxCharacters, MAX_CHARACTERS_LENGTH)

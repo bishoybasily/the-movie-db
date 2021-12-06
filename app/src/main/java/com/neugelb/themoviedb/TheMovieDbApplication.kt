@@ -6,7 +6,7 @@ import com.neugelb.themoviedb.helper.LogHelper
 import io.reactivex.plugins.RxJavaPlugins
 import javax.inject.Inject
 
-open class ApplicationTheMovieDb : Application() {
+open class TheMovieDbApplication : Application() {
 
     val TAG = javaClass.simpleName
 

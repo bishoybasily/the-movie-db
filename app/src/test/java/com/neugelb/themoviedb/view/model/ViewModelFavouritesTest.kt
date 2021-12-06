@@ -34,7 +34,7 @@ class ViewModelFavouritesTest {
     lateinit var usecaseSavedMovies: UsecaseSavedMovies
     @field:[Inject Local]
     lateinit var repositoryMovies: RepositoryMovies
-
+    @field:[Inject]
     lateinit var viewModelFavourites: ViewModelFavourites
 
     val favourites = ArrayList<Movie>()
@@ -55,8 +55,6 @@ class ViewModelFavouritesTest {
         for (i in 0..5)
             favourites.add(Movie("fav_$i"))
 
-        viewModelFavourites = ViewModelFavourites(compositeDisposable, logHelper, usecaseSavedMovies)
-
         viewModelFavourites.allObservable.observeForever(observer)
 
     }
@@ -75,7 +73,6 @@ class ViewModelFavouritesTest {
 
     @After
     fun tearDown() {
-
         viewModelFavourites.cleared()
     }
 

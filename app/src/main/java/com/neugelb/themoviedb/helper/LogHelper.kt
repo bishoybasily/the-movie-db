@@ -9,24 +9,24 @@ class LogHelper
 @Inject
 constructor() {
 
-    fun warn(tag: String, message: String?) {
+    fun warn(tag: String, message: String) {
         if (Constants.Configuration.LOGGING)
             Log.w(tag, message)
     }
 
-    fun info(tag: String, message: String?) {
+    fun info(tag: String, message: String) {
         if (Constants.Configuration.LOGGING)
             Log.i(tag, message)
     }
 
-    fun error(tag: String, message: String?) {
+    fun error(tag: String, message: String) {
         if (Constants.Configuration.LOGGING)
             Log.e(tag, message)
     }
 
-    fun error(tag: String, throwable: Throwable?) {
+    fun error(tag: String, throwable: Throwable) {
         if (Constants.Configuration.LOGGING)
-            Log.e(tag, throwable?.message, throwable)
+            Log.e(tag, throwable.message, throwable)
     }
 
 }
